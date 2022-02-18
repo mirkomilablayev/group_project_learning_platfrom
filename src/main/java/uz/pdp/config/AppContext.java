@@ -26,11 +26,13 @@ public class AppContext {
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
 
+        // mana bu yerda menda port 5433 da ishlaydi sizlar esa 5432 qillariz kk  manimcha
+
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5433/postgres");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("root123");
+        dataSource.setUrl("jdbc:postgresql://localhost:5433/{ postgres }");
+        dataSource.setUsername("{ username }");
+        dataSource.setPassword("{ passwrod }");
 
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
