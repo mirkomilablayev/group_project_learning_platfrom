@@ -29,7 +29,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
     }
 
-
     @Bean
     public InternalResourceViewResolver resolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -38,7 +37,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         resolver.setSuffix(".jsp");
         return resolver;
     }
-
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
@@ -49,4 +47,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         dataSource.setPassword("root123");
         return new JdbcTemplate(dataSource);
     }
+
 }
