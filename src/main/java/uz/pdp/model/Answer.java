@@ -17,7 +17,10 @@ public class Answer {
     @Id
     @GeneratedValue
     private Integer id;
+
+    @Column(nullable = false)
     private String answer;
+
     @ManyToOne
     private Task task;
 }
