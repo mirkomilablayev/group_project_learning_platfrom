@@ -30,9 +30,9 @@ public class AppContext {
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5433/{ postgres }");
-        dataSource.setUsername("{ username }");
-        dataSource.setPassword("{ passwrod }");
+        dataSource.setUrl("jdbc:postgresql://localhost:5433/learning_platform_db");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("root123");
 
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
