@@ -53,7 +53,7 @@ public class AppContext {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
         properties.put("hibernate.show_sql", true);
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         return properties;
     }
 

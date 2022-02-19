@@ -20,7 +20,7 @@
 <a href="/register"><button type="button" class="btn btn-primary">Register</button></a>
 <hr>
 <br><br><hr>
-
+<p>Developed by Mirkomil,Sardor,Asilbek,Oloviddin</p>
 <%--<c:set var="course" value="${course}"/>--%>
 
 <%--<c:choose>--%>

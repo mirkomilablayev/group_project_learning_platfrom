@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.dao.UserDao;
 import uz.pdp.model.Course;
+import uz.pdp.model.User;
 
 import java.util.List;
 
@@ -26,4 +27,10 @@ public class UserService {
     public List<Course> getAllCourse(){
         return userDao.getAllCourse();
     }
+
+    @Transactional
+    public boolean isExist(String username){return userDao.isExist(username);}
+
+    @Transactional
+    public void saver(User user){userDao.saver(user);}
 }

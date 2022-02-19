@@ -46,7 +46,7 @@ public class User {
 
     private LocalDateTime register_at = LocalDateTime.now();
 
-    @OneToOne
+    @ManyToOne
     private Role role;
 
     private String imgPath;
