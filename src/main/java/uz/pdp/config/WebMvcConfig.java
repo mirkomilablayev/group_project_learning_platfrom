@@ -38,14 +38,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return resolver;
     }
 
-    @Bean
-    public JdbcTemplate jdbcTemplate() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5433/my_blog_app_db");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("root123");
-        return new JdbcTemplate(dataSource);
-    }
+//    @Bean
+//    public JdbcTemplate jdbcTemplate() {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName("org.postgresql.Driver");
+//        dataSource.setUrl("jdbc:postgresql://localhost:5433/my_blog_app_db");
+//        dataSource.setUsername("postgres");
+//        dataSource.setPassword("root123");
+//        return new JdbcTemplate(dataSource);
+//    }
 
 }

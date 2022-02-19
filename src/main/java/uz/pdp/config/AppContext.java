@@ -9,23 +9,30 @@ package uz.pdp.config;
 
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.persistence.PersistenceContext;
 import java.util.Properties;
 
+
+
+@PersistenceContext
 @Configuration
 @EnableTransactionManagement
+@EnableWebMvc
+@ComponentScan(basePackages = {"uz.pdp"})
 public class AppContext {
 
 
 
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
-
         // mana bu yerda menda port 5433 da ishlaydi sizlar esa 5432 qillariz kk  manimcha
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -46,7 +53,7 @@ public class AppContext {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
         properties.put("hibernate.show_sql", true);
-        properties.put("hibernate.hbm2ddl.auto", "create");
+        properties.put("hibernate.hbm2ddl.auto", "update");
         return properties;
     }
 
