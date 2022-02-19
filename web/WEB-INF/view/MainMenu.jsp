@@ -22,5 +22,9 @@
 <br><br><hr>
 <p>Developed by Mirkomil,Sardor,Asilbek,Oloviddin</p>
 
+<%
+
+%>
+
 </body>
 </html>

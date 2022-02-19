@@ -91,8 +91,11 @@ public class UserController {
                          Model model){
 
         boolean b = userService.isexistUser(email, password);
-        if (b)
+        if (b){
+            User user = new User();
+            model.addAttribute("user",user);
             return "login";
+        }
 
         User currentUser = userService.getCurrentUser(password, email);
 
