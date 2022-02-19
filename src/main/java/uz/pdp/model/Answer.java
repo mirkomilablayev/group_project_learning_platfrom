@@ -21,6 +21,7 @@ public class Answer {
     @Column(nullable = false)
     private String answer;
 
+
     @ManyToOne
     private Task task;
 }
