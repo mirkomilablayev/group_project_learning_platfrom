@@ -33,4 +33,10 @@ public class UserService {
 
     @Transactional
     public void saver(User user){userDao.saver(user);}
+
+    @Transactional
+    public boolean isexistUser(String email,String password){return userDao.isExist1(email,password);}
+
+    @Transactional
+    public User getCurrentUser(String password,String email){return userDao.getCurrentUser(password, email);}
 }

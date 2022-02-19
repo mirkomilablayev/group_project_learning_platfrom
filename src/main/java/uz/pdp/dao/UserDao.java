@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.model.Course;
 import uz.pdp.model.User;
 
@@ -40,17 +41,27 @@ public class UserDao {
         return b;
     }
 
-//    public boolean isExist(String number){
-//        Session session = sessionFactory.getCurrentSession();
-//        boolean exists = (Long) session.createQuery("select count(*) from User where phoneNumber = '"+number+"'").uniqueResult() > 0;
-//        return exists;
-//    }
+
+
 
     public void saver(User user){
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(user.getRole());
         currentSession.save(user);
     }
 
+    public boolean isExist1(String email,String password){
+        Session currentSession = sessionFactory.getCurrentSession();
+        boolean b = (Long)currentSession.createQuery("select count(*) from User where password = '"+password+"' and email = '"+email+"'").uniqueResult()>1;
+        return b;
+    }
+
+
+    public User getCurrentUser(String password,String email){
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from User where email = '" + email + "' and password = '"+password+"'");
+        Object o = query.uniqueResult();
+        User user = (User)o;
+        return user;
+    }
 
 }
