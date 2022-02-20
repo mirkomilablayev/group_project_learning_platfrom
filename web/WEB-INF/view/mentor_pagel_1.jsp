@@ -46,7 +46,7 @@
                         <a href="#" class="btn btn-primary">
                             <button>More Info</button>
                         </a>
-                        <a href="deleteCourse/${c.course.id}/${currentUser.id}" class="btn btn-primary">
+                        <a href="/deleteCourse/${c.course.id}/${currentUser.id}" class="btn btn-primary">
                             <button style="background-color: red">Delete</button>
                         </a>
                     </div>

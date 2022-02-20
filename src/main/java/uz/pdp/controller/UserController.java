@@ -86,52 +86,40 @@ public class UserController {
             user.setBalance(Double.parseDouble(balance));
         user.setRegister_at(LocalDateTime.now());
         user.setRole(who);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         userService.saver(user);
         return "login";
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String login(Model model){
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(Model model) {
         User user = new User();
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "login";
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login_(@RequestParam String email,
                          @RequestParam String password,
-                         Model model){
+                         Model model) {
 
         boolean b = userService.isexistUser(email, password);
-        if (b){
+        if (b) {
             User user = new User();
-            model.addAttribute("user",user);
+            model.addAttribute("user", user);
             return "login";
         }
 
         User currentUser = userService.getCurrentUser(password, email);
 
-            if (currentUser.getRole().equalsIgnoreCase("Mentor")){
-                List<CourseDto> allCourses = courseService.getAllCourses(currentUser.getId());
-                for (CourseDto allCours : allCourses) {
-                    try {
-                        String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
-                        allCours.setImg(pictureByteArrayString);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                model.addAttribute("courses", allCourses);
-                model.addAttribute("mentor", currentUser);
-                return "mentor_pagel_1";
-            }else if(currentUser.getRole().equalsIgnoreCase("Student")){
-                model.addAttribute("student",currentUser);
-                return "student_page_1";
-            }else{
-                return "login";
-            }
+        if (currentUser.getRole().equalsIgnoreCase("Mentor")) {
+            return "redirect:/info/"+currentUser.getId();
+        } else if (currentUser.getRole().equalsIgnoreCase("Student")) {
+            model.addAttribute("student", currentUser);
+            return "student_page_1";
+        } else {
+            return "login";
+        }
     }
 
     private String getPictureByteArrayString(String path, String filename) throws IOException {

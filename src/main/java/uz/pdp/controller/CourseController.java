@@ -43,8 +43,6 @@ public class CourseController {
 
     @RequestMapping(value = "/addCourse/{user_id}", method = RequestMethod.GET)
     public String addCourse(@PathVariable int user_id, Model model) {
-
-
         List<Category> allCategory = courseService.getAllCategory();
         model.addAttribute("categories", allCategory);
         model.addAttribute("user_id", user_id);
@@ -139,7 +137,7 @@ public class CourseController {
     }
 
 
-    @RequestMapping(value = "deleteCourse/{course_id}/{user_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/info/{user_id1}/deleteCourse/{course_id}/{user_id}", method = RequestMethod.GET)
     public String deleteCourse(@PathVariable int course_id,
                                Model model,
                                @PathVariable int user_id) {
