@@ -15,6 +15,7 @@ import uz.pdp.dao.CourseDao;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.Category;
 import uz.pdp.model.Course;
+import uz.pdp.model.Module;
 import uz.pdp.model.User;
 
 import java.util.List;
@@ -43,4 +44,13 @@ public class CourseService {
 
     @Transactional
     public CourseDto getCourseById(int id){return courseDao.getOneCourse(id);}
+
+    @Transactional
+    public void saveModule(Module module){courseDao.saveModule(module);}
+
+    @Transactional
+    public Course getCourse(int id){return courseDao.getCourse(id);}
+
+    @Transactional
+    public void deleteModule(int id){courseDao.deleteModule(id);}
 }

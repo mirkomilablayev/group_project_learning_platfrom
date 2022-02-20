@@ -164,4 +164,30 @@ public class CourseDao {
         return b64;
     }
 
+
+
+    public void saveModule(Module module){
+        Session session = sessionFactory.getCurrentSession();
+        session.save(module);
+    }
+
+
+    public Course getCourse(int course_id){
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Course  where id = " + course_id + "");
+        Object o = query.uniqueResult();
+        Course course = (Course)o;
+        return course;
+    }
+
+
+    public void deleteModule(int module_id){
+        Session currentSession = sessionFactory.getCurrentSession();
+        NativeQuery nativeQuery = currentSession.createNativeQuery("delete from lessons where module_id = " + module_id + ";");
+        nativeQuery.executeUpdate();
+
+        NativeQuery nativeQuery1 = currentSession.createNativeQuery("delete from modules where id = " + module_id + "");
+        nativeQuery1.executeUpdate();
+    }
+
 }

@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Title</title>
+
 </head>
 <body>
 
@@ -20,13 +21,14 @@
 
 <div class="card bg-dark text-white" style="border-color: red; background-color: aquamarine">
     <img style="padding: 2%;"
-         src="data:image/png;base64, ${course.img}" class="card-img"
+         src="data:image/png;base64, ${course.img}"
          class="card-img-top" alt="Here should be image">
     <div class="card-img-overlay">
         <h5 class="card-title">Course Name: ${course.course.name}</h5>
         <p class="card-text">Course Description: ${course.course.description}</p>
         <p class="card-text">Price: ${course.course.description}</p>
-        <p class="card-text">Price: ${course.course.category}</p>
+        <p class="card-text">Category: ${course.course.category}</p>
+        <p class="card-text">Uploaded At ${course.course.uploaded_at}</p>
         <br><br>
     </div>
 </div>
@@ -35,7 +37,7 @@
 <a href="/back/${course.course.owner}">
     <button style="background-color: red">Back</button>
 </a>
-<a href="">
+<a href="/addModule/${course.course.owner}/${course.course.id}">
     <button style="background-color: green">+ Add Module</button>
 </a>
 <br>
@@ -53,6 +55,7 @@
                 <th scope="col">Module name</th>
                 <th scope="col">button</th>
                 <th scope="col">button</th>
+                <th scope="col">button</th>
             </tr>
             </thead>
             <tbody>
@@ -65,6 +68,9 @@
                     </a></td>
                     <td><a href="#/${module.id}">
                         <button style="background-color: rgba(51,0,128,0.92);">More</button>
+                    </a></td>
+                    <td><a href="deleteModule/${module.id}/${course.course.id}">
+                        <button style="background-color: red;">Delete</button>
                     </a></td>
                 </tr>
             </c:forEach>

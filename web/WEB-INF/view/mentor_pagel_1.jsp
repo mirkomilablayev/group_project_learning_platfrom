@@ -18,7 +18,7 @@
 
 <c:set var="currentUser" value="${mentor}"/>
 <c:set value="${courses}" var="course"/>
-<h1>Current User is ${currentUser.firstName} ${currentUser.lastName }</h1>
+<h1>Current User is ${currentUser.firstName} ${currentUser.lastName}</h1>
 
 <a href="/addCourse/${currentUser.id}">
     <button style="background-color: green">+ Add Course</button>
