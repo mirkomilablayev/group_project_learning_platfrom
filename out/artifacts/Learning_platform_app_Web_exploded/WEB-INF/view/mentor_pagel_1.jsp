@@ -28,7 +28,7 @@
 
 <c:choose>
     <c:when test="${course.size() == 0}">
-        <h1 style="background-color: red">You don't have any picture yet</h1>
+        <h1 style="background-color: red">You don't have any Course yet</h1>
     </c:when>
     <c:otherwise>
         <div class="row">
@@ -41,9 +41,10 @@
                     <div class="card-body">
                         <p class="card-title"><strong>Course Name:</strong>${c.course.name}</p>
                         <p class="card-text"><strong>Description:</strong>${c.course.description}</p>
+                        <p class="card-text"><strong>price:</strong>${c.course.price}</p>
                         <p><strong>Like:</strong> ${c.likeCount} -- <strong>Comments:</strong> ${c.commentCount}</p>
                         <br>
-                        <a href="#" class="btn btn-primary">
+                        <a href="/more/${c.course.id}" class="btn btn-primary">
                             <button>More Info</button>
                         </a>
                         <a href="/deleteCourse/${c.course.id}/${currentUser.id}" class="btn btn-primary">

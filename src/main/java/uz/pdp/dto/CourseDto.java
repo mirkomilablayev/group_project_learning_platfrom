@@ -10,6 +10,7 @@ package uz.pdp.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import uz.pdp.model.Comment;
 import uz.pdp.model.Course;
 import uz.pdp.model.Module;
 import uz.pdp.model.UserCourse;
@@ -22,6 +23,8 @@ import java.util.List;
 public class CourseDto {
     private Course course;
     private List<UserCourse>users;
+    private List<Comment>comments;
+    private List<Module>modules;
     private String img;
     private int likeCount;
     private int commentCount;

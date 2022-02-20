@@ -40,4 +40,7 @@ public class CourseService {
 
     @Transactional
     public void deleteCourse(int Course_id){courseDao.deleteCourse(Course_id);}
+
+    @Transactional
+    public CourseDto getCourseById(int id){return courseDao.getOneCourse(id);}
 }

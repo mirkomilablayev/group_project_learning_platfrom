@@ -95,7 +95,21 @@ public class CourseController {
         courseService.saver(course);
         getImageUrl(file, imgPath);
 
-        return "redirect:/info/"+user_id;
+
+        List<CourseDto> allCourses = courseService.getAllCourses(user_id);
+        for (CourseDto allCours : allCourses) {
+            try {
+                String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
+                allCours.setImg(pictureByteArrayString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        User currentUser = courseService.getCurrentUser(user_id);
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("mentor", currentUser);
+        return "mentor_pagel_1";
     }
 
     public String getImageName(CommonsMultipartFile image) {
@@ -137,18 +151,15 @@ public class CourseController {
     }
 
 
-    @RequestMapping(value = "/info/{user_id1}/deleteCourse/{course_id}/{user_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteCourse/{course_id}/{user_id}", method = RequestMethod.GET)
     public String deleteCourse(@PathVariable int course_id,
                                Model model,
                                @PathVariable int user_id) {
 
 
         courseService.deleteCourse(course_id);
-        return "redirect:/info/"+user_id;
-    }
 
-    @RequestMapping(value = "/info/{user_id}",method = RequestMethod.GET)
-    public String getInfo(@PathVariable int user_id,Model model){
+
         List<CourseDto> allCourses = courseService.getAllCourses(user_id);
         for (CourseDto allCours : allCourses) {
             try {
@@ -163,6 +174,32 @@ public class CourseController {
         model.addAttribute("courses", allCourses);
         model.addAttribute("mentor", currentUser);
         return "mentor_pagel_1";
+    }
+
+    @RequestMapping(value = "/info/{user_id}", method = RequestMethod.GET)
+    public String getInfo(@PathVariable int user_id, Model model) {
+        List<CourseDto> allCourses = courseService.getAllCourses(user_id);
+        for (CourseDto allCours : allCourses) {
+            try {
+                String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
+                allCours.setImg(pictureByteArrayString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        User currentUser = courseService.getCurrentUser(user_id);
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("mentor", currentUser);
+        return "mentor_pagel_1";
+    }
+
+
+    @RequestMapping(value = "/more/{course_id}")
+    public String moreInfo(@PathVariable int course_id,Model model) {
+        CourseDto course = courseService.getCourseById(course_id);
+        model.addAttribute("course",course);
+        return "oneCourseDefinition";
     }
 
 
