@@ -123,9 +123,8 @@ public class UserController {
                     }
                 }
 
-                User currentUser1 = courseService.getCurrentUser(currentUser.getId());
-                model.addAttribute("courses",allCourses);
-                model.addAttribute("mentor",currentUser1);
+                model.addAttribute("courses", allCourses);
+                model.addAttribute("mentor", currentUser);
                 return "mentor_pagel_1";
             }else if(currentUser.getRole().equalsIgnoreCase("Student")){
                 model.addAttribute("student",currentUser);

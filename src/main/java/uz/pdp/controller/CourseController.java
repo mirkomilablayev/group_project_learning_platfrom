@@ -97,21 +97,7 @@ public class CourseController {
         courseService.saver(course);
         getImageUrl(file, imgPath);
 
-
-        List<CourseDto> allCourses = courseService.getAllCourses(user_id);
-        for (CourseDto allCours : allCourses) {
-            try {
-                String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
-                allCours.setImg(pictureByteArrayString);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        User currentUser = courseService.getCurrentUser(user_id);
-        model.addAttribute("courses", allCourses);
-        model.addAttribute("mentor", currentUser);
-        return "mentor_pagel_1";
+        return "redirect:/info/"+user_id;
     }
 
     public String getImageName(CommonsMultipartFile image) {
@@ -160,7 +146,11 @@ public class CourseController {
 
 
         courseService.deleteCourse(course_id);
+        return "redirect:/info/"+user_id;
+    }
 
+    @RequestMapping(value = "/info/{user_id}",method = RequestMethod.GET)
+    public String getInfo(@PathVariable int user_id,Model model){
         List<CourseDto> allCourses = courseService.getAllCourses(user_id);
         for (CourseDto allCours : allCourses) {
             try {
