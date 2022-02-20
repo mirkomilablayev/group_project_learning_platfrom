@@ -113,7 +113,24 @@ public class UserController {
         User currentUser = userService.getCurrentUser(password, email);
 
         if (currentUser.getRole().equalsIgnoreCase("Mentor")) {
-            return "redirect:/info/"+currentUser.getId();
+
+
+            List<CourseDto> allCourses = courseService.getAllCourses(currentUser.getId());
+            for (CourseDto allCours : allCourses) {
+                try {
+                    String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
+                    allCours.setImg(pictureByteArrayString);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            model.addAttribute("courses", allCourses);
+            model.addAttribute("mentor", currentUser);
+
+
+            return "mentor_pagel_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Student")) {
             model.addAttribute("student", currentUser);
             return "student_page_1";

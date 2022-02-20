@@ -16,6 +16,12 @@ import org.springframework.stereotype.Repository;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.*;
 
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,5 +116,78 @@ public class CourseDao {
         nativeQuery3.executeUpdate();
     }
 
+    public CourseDto getOneCourse(int course_id){
+        CourseDto courseDto = new CourseDto();
+
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("from Course  where id = " + course_id + "");
+        Object o = query.uniqueResult();
+        Course course = (Course)o;
+        courseDto.setCourse(course);
+
+
+        Query query1 = session.createQuery("from comments where course = " + course_id + "");
+        List list = query.list();
+        List<Comment> allComment = (List<Comment>) list;
+        courseDto.setComments(allComment);
+
+        Query query2 = session.createQuery("from modules where course = " + course_id + "");
+        List list1 = query2.list();
+        List<Module>getModules = (List<Module>) list1;
+        courseDto.setModules(getModules);
+
+        Query query3 = session.createQuery("from users_courses where course = " + course_id + "");
+        List list2 = query3.list();
+        List<UserCourse>getStudents = (List<UserCourse>) list2;
+        courseDto.setUsers(getStudents);
+
+        try {
+            String img = getPictureByteArrayString(course.getImg_path(), course.getImg_name());
+            courseDto.setImg(img);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return courseDto;
+    }
+
+
+    private String getPictureByteArrayString(String path, String filename) throws IOException {
+        BufferedImage image = ImageIO.read(new File(path + "/" + filename));
+        ByteArrayOutputStream base = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", base);
+        base.flush();
+        byte[] imageInByteArray = base.toByteArray();
+        base.close();
+        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+        return b64;
+    }
+
+
+
+    public void saveModule(Module module){
+        Session session = sessionFactory.getCurrentSession();
+        session.save(module);
+    }
+
+
+    public Course getCourse(int course_id){
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Course  where id = " + course_id + "");
+        Object o = query.uniqueResult();
+        Course course = (Course)o;
+        return course;
+    }
+
+
+    public void deleteModule(int module_id){
+        Session currentSession = sessionFactory.getCurrentSession();
+        NativeQuery nativeQuery = currentSession.createNativeQuery("delete from lessons where module_id = " + module_id + ";");
+        nativeQuery.executeUpdate();
+
+        NativeQuery nativeQuery1 = currentSession.createNativeQuery("delete from modules where id = " + module_id + "");
+        nativeQuery1.executeUpdate();
+    }
 
 }

@@ -22,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.Category;
 import uz.pdp.model.Course;
+import uz.pdp.model.Module;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 
@@ -95,7 +96,21 @@ public class CourseController {
         courseService.saver(course);
         getImageUrl(file, imgPath);
 
-        return "redirect:/info/"+user_id;
+
+        List<CourseDto> allCourses = courseService.getAllCourses(user_id);
+        for (CourseDto allCours : allCourses) {
+            try {
+                String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
+                allCours.setImg(pictureByteArrayString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        User currentUser = courseService.getCurrentUser(user_id);
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("mentor", currentUser);
+        return "mentor_pagel_1";
     }
 
     public String getImageName(CommonsMultipartFile image) {
@@ -137,18 +152,15 @@ public class CourseController {
     }
 
 
-    @RequestMapping(value = "/info/{user_id1}/deleteCourse/{course_id}/{user_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteCourse/{course_id}/{user_id}", method = RequestMethod.GET)
     public String deleteCourse(@PathVariable int course_id,
                                Model model,
                                @PathVariable int user_id) {
 
 
         courseService.deleteCourse(course_id);
-        return "redirect:/info/"+user_id;
-    }
 
-    @RequestMapping(value = "/info/{user_id}",method = RequestMethod.GET)
-    public String getInfo(@PathVariable int user_id,Model model){
+
         List<CourseDto> allCourses = courseService.getAllCourses(user_id);
         for (CourseDto allCours : allCourses) {
             try {
@@ -163,6 +175,97 @@ public class CourseController {
         model.addAttribute("courses", allCourses);
         model.addAttribute("mentor", currentUser);
         return "mentor_pagel_1";
+    }
+
+    @RequestMapping(value = "/info/{user_id}", method = RequestMethod.GET)
+    public String getInfo(@PathVariable int user_id, Model model) {
+        List<CourseDto> allCourses = courseService.getAllCourses(user_id);
+        for (CourseDto allCours : allCourses) {
+            try {
+                String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
+                allCours.setImg(pictureByteArrayString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        User currentUser = courseService.getCurrentUser(user_id);
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("mentor", currentUser);
+        return "mentor_pagel_1";
+    }
+
+
+    @RequestMapping(value = "/more/{course_id}")
+    public String moreInfo(@PathVariable int course_id,Model model) {
+        CourseDto course = courseService.getCourseById(course_id);
+        model.addAttribute("course",course);
+        return "oneCourseDefinition";
+    }
+
+
+    @RequestMapping(value = "/back/{user_id}",method = RequestMethod.GET)
+    public String back(@PathVariable int user_id,Model model){
+        List<CourseDto> allCourses = courseService.getAllCourses(user_id);
+        for (CourseDto allCours : allCourses) {
+            try {
+                String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
+                allCours.setImg(pictureByteArrayString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        User currentUser = courseService.getCurrentUser(user_id);
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("mentor", currentUser);
+        return "mentor_pagel_1";
+    }
+
+
+    @RequestMapping(value = "/addModule/{user_id}/{course_id}", method = RequestMethod.GET)
+    public String addModule(@PathVariable int user_id,
+                            @PathVariable int course_id,
+                            Model model){
+
+        model.addAttribute("user_id",user_id);
+        model.addAttribute("course_id",course_id);
+        return "addModuleForm";
+    }
+
+
+    @RequestMapping(value = "/addModule/{user_id}/{course_id}",method = RequestMethod.POST)
+    public String addModuleLogic(@PathVariable int user_id,
+                            @PathVariable int course_id,
+                            @RequestParam String name,
+                            @RequestParam String description,
+                            Model model){
+        User currentUser = courseService.getCurrentUser(user_id);
+
+
+        Module module = new Module();
+        module.setName(name);
+        module.setDescription(description);
+        module.setUser(currentUser);
+        module.setCourse(courseService.getCourse(course_id));
+
+        courseService.saveModule(module);
+        CourseDto course1 = courseService.getCourseById(course_id);
+        model.addAttribute("course",course1);
+        return "oneCourseDefinition";
+    }
+
+
+    @RequestMapping(value = "deleteModule/{module_id}/{course_id}",method = RequestMethod.GET)
+    public String deleteModule(@PathVariable int module_id,
+                               @PathVariable int course_id,
+                               Model model){
+
+        courseService.deleteModule(module_id);
+
+        CourseDto course1 = courseService.getCourseById(course_id);
+        model.addAttribute("course",course1);
+        return "oneCourseDefinition";
     }
 
 
