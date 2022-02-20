@@ -8,11 +8,23 @@ package uz.pdp.controller;
 //Author --  Ablayev Mirkomil 2/20/2022 --9:16 AM 
 
 
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import uz.pdp.model.Category;
 import uz.pdp.service.CourseService;
+
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.List;
 
 @Controller
 public class CourseController {
@@ -21,9 +33,54 @@ public class CourseController {
     CourseService courseService;
 
 
-    @RequestMapping(value = "/addCourse",method = RequestMethod.GET)
-    public String addCourse(){
-        return "";
+    @RequestMapping(value = "/addCourse/{user_id}", method = RequestMethod.GET)
+    public String addCourse(@PathVariable int user_id, Model model) {
+
+        List<Category> allCategory = courseService.getAllCategory();
+
+        model.addAttribute("categories",allCategory);
+        model.addAttribute("user_id",user_id);
+        return "addCourseForm";
     }
+
+
+
+    @RequestMapping(value="/addCourse/{user_id}",method= RequestMethod.POST)
+    public String upload(@RequestParam(name = "textFile") CommonsMultipartFile file,
+                         Model model) throws IOException {
+
+        String path= "C:\\Users\\User\\Desktop\\springHome\\UploadAndDownloadFileMVC\\src\\main\\resources";
+        String filename=file.getOriginalFilename();
+
+        System.out.println(path+" "+filename);
+
+        try{
+            byte barr[]=file.getBytes();
+
+            BufferedOutputStream bout=new BufferedOutputStream(
+                    new FileOutputStream(path+"/"+filename));
+            bout.write(barr);
+            bout.flush();
+            bout.close();
+
+        } catch (Exception e){}
+
+
+        BufferedImage image =  ImageIO.read(new File(path + "/" + filename));
+
+        ByteArrayOutputStream base = new ByteArrayOutputStream();
+        ImageIO.write(image,"png",base);
+        base.flush();
+        byte[] imageInByteArray = base.toByteArray();
+        base.close();
+
+        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+
+        model.addAttribute("base64", b64);
+
+        return "image";
+    }
+
+
 
 }

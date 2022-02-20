@@ -16,7 +16,7 @@
 <c:set var="currentUser" value="${mentor}"/>
 <h1>Assalomu alaykum mentor panelga,,,${currentUser.firstName}</h1>
 
-<a href="/addCourse">b<button style="background-color: green">+ Add Course</button></a><hr>
+<a href="/addCourse/${currentUser.id}"><button style="background-color: green">+ Add Course</button></a><hr>
 
 </body>
 </html>

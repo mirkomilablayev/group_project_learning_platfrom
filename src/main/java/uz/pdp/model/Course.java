@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 //Sardor {18.02.2022}{ 15:40}
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Entity(name = "courses")
 @Table(name = "courses")
 public class Course {
@@ -23,7 +24,6 @@ public class Course {
     private double price;
     private LocalDateTime uploaded_at=LocalDateTime.now();
     private String img_path;
-
 
     @ManyToOne
     private User owner;
