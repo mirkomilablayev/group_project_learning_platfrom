@@ -95,23 +95,22 @@ public class CourseController {
         course.setImg_path(imgPath);
         course.setOwner(user_id);
         courseService.saver(course);
-        getImageUrl(file,imgPath);
-
+        getImageUrl(file, imgPath);
 
 
         List<CourseDto> allCourses = courseService.getAllCourses(user_id);
         for (CourseDto allCours : allCourses) {
             try {
                 String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
-                    allCours.setImg(pictureByteArrayString);
+                allCours.setImg(pictureByteArrayString);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         User currentUser = courseService.getCurrentUser(user_id);
-        model.addAttribute("courses",allCourses);
-        model.addAttribute("mentor",currentUser);
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("mentor", currentUser);
         return "mentor_pagel_1";
     }
 
@@ -154,14 +153,13 @@ public class CourseController {
     }
 
 
-
     @RequestMapping(value = "deleteCourse/{course_id}/{user_id}", method = RequestMethod.GET)
     public String deleteCourse(@PathVariable int course_id,
                                Model model,
-                               @PathVariable int user_id){
+                               @PathVariable int user_id) {
 
 
-
+        courseService.deleteCourse(course_id);
 
         List<CourseDto> allCourses = courseService.getAllCourses(user_id);
         for (CourseDto allCours : allCourses) {
@@ -174,8 +172,8 @@ public class CourseController {
         }
 
         User currentUser = courseService.getCurrentUser(user_id);
-        model.addAttribute("courses",allCourses);
-        model.addAttribute("mentor",currentUser);
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("mentor", currentUser);
         return "mentor_pagel_1";
     }
 

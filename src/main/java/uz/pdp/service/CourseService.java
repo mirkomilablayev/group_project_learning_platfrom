@@ -37,4 +37,7 @@ public class CourseService {
 
     @Transactional
     public List<CourseDto>getAllCourses(int id){return courseDao.getCourses(id);}
+
+    @Transactional
+    public void deleteCourse(int Course_id){courseDao.deleteCourse(Course_id);}
 }

@@ -41,10 +41,14 @@
                     <div class="card-body">
                         <p class="card-title"><strong>Course Name:</strong>${c.course.name}</p>
                         <p class="card-text"><strong>Description:</strong>${c.course.description}</p>
-                        <p><strong>Like:</strong>  ${c.likeCount} -- <strong>Comments:</strong> ${c.commentCount}</p>
+                        <p><strong>Like:</strong> ${c.likeCount} -- <strong>Comments:</strong> ${c.commentCount}</p>
                         <br>
-                        <a href="#" class="btn btn-primary"><button>More Info</button></a>
-                        <a href="deleteCourse/${c.course.id}/${currentUser.id}" class="btn btn-primary"><button style="background-color: red">Delete</button></a>
+                        <a href="#" class="btn btn-primary">
+                            <button>More Info</button>
+                        </a>
+                        <a href="deleteCourse/${c.course.id}/${currentUser.id}" class="btn btn-primary">
+                            <button style="background-color: red">Delete</button>
+                        </a>
                     </div>
                 </div>
             </c:forEach>
