@@ -31,6 +31,8 @@ import java.util.List;
 @Controller
 public class CourseController {
 
+    private final String imgPath = "D:\\crud\\Learning_platform_app\\src\\main\\resources";
+
     @Autowired
     CourseService courseService;
 
@@ -56,15 +58,15 @@ public class CourseController {
                             Model model,
                             @RequestParam("file") CommonsMultipartFile file) {
 
-        String path = "D:\\crud\\Learning_platform_app\\src\\main\\resources";
 
-        String imageUrl = getImageUrl(file,path);
+
+        String imageUrl = getImageUrl(file,imgPath);
 
 
         String imageName = getImageName(file);
 
         try {
-            String picture = getPicture(path, imageName);
+            String picture = getPicture(imgPath, imageName);
 
             model.addAttribute("picture",picture);
 
