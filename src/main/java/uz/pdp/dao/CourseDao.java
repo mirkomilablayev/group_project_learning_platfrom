@@ -212,4 +212,10 @@ public class CourseDao {
         return moduleDto;
     }
 
+
+    public void saveLesson(Lesson lesson){
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.save(lesson);
+    }
+
 }

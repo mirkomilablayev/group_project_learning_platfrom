@@ -14,10 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.dao.CourseDao;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
-import uz.pdp.model.Category;
-import uz.pdp.model.Course;
-import uz.pdp.model.Module;
-import uz.pdp.model.User;
+import uz.pdp.model.*;
 
 import java.util.List;
 
@@ -57,4 +54,7 @@ public class CourseService {
 
     @Transactional
     public ModuleDto getModule(int module_id){return courseDao.getModul(module_id);}
+
+    @Transactional
+    public void saveLesson(Lesson lesson){courseDao.saveLesson(lesson);}
 }

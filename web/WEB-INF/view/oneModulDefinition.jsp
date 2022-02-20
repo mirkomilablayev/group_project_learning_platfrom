@@ -53,7 +53,7 @@
                 <tr>
                     <th scope="row">1</th>
                     <td>${lesson.name}</td>
-                    <td><a href="">
+                    <td><a href="/watch/${lesson.video_url}/${module_id}">
                         <button STYLE="background-color: green">WATCH VIDEO</button>
                     </a></td>
                 </tr>

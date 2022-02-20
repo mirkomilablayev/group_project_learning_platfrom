@@ -32,7 +32,8 @@
 
 <hr>
 <br>
-<a href=""><button>+Add Lesson</button></a>
+<a href="/addLesson/${module.module.id}"><button>+Add Lesson</button></a>
+<br>
 <br>
 <c:choose>
     <c:when test="${module.lessons.size() == 0}">
@@ -52,7 +53,7 @@
                 <tr>
                     <th scope="row">1</th>
                     <td>${lesson.name}</td>
-                    <td><a href="">
+                    <td><a href="/watch/${lesson.video_url}/${module_id}">
                         <button STYLE="background-color: green">WATCH VIDEO</button>
                     </a></td>
                 </tr>

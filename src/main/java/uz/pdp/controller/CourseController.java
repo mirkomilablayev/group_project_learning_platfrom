@@ -21,10 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
-import uz.pdp.model.Category;
-import uz.pdp.model.Course;
-import uz.pdp.model.Module;
-import uz.pdp.model.User;
+import uz.pdp.model.*;
 import uz.pdp.service.CourseService;
 
 import javax.imageio.ImageIO;
@@ -274,14 +271,45 @@ public class CourseController {
     public String moduleInfo(@PathVariable int module_id,
                              Model model) {
         ModuleDto module = courseService.getModule(module_id);
-        model.addAttribute("module",module);
+        model.addAttribute("module", module);
         return "oneModulDefinition";
     }
 
-    @RequestMapping(value = "/addLesson/{module_id}" ,method = RequestMethod.GET)
-    public String addLesson(@PathVariable int module_id,Model model){
-
+    @RequestMapping(value = "/addLesson/{module_id}", method = RequestMethod.GET)
+    public String addLesson(@PathVariable int module_id, Model model) {
+        model.addAttribute("module_id", module_id);
         return "addLessonForm";
+    }
+
+    @RequestMapping(value = "/addLesson/{module_id}", method = RequestMethod.POST)
+    public String saveLesson(@PathVariable int module_id,
+                             @RequestParam String name,
+                             @RequestParam String url) {
+
+        if (name.length() == 0)
+            return "addLessonForm";
+
+        if (url.length() == 0)
+            return "addLessonForm";
+
+        Lesson lesson = new Lesson();
+        lesson.setName(name);
+        lesson.setVideo_url(url);
+        ModuleDto module = courseService.getModule(module_id);
+        lesson.setModule(module.getModule());
+        courseService.saveLesson(lesson);
+        return "redirect:/moreInfoModul/" + module_id;
+    }
+
+
+    @RequestMapping(value = "/watch/{video_url}/{module_id}")
+    public String watchVideo(@PathVariable String video_url,
+                             @PathVariable int module_id,
+                             Model model){
+
+        model.addAttribute("url",video_url);
+        model.addAttribute("modul_id",module_id);
+        return "watchVideo";
     }
 
 
