@@ -26,7 +26,7 @@
     category <br>
     <select name="category">
         <c:forEach var="c" items="${categories}">
-            <option value="${c.id}">${c.name}</option>
+            <option value="${c.name}">${c.name}</option>
         </c:forEach>
     </select><br><br>
     <input type="submit" value="+ Add Course" style="background-color: green;">

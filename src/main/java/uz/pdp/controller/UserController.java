@@ -13,16 +13,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import uz.pdp.dto.CourseDto;
 import uz.pdp.model.User;
+import uz.pdp.service.CourseService;
 import uz.pdp.service.UserService;
 
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 public class UserController {
 
     @Autowired
     UserService userService;
+
+
+    @Autowired
+    CourseService courseService;
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
     public String start(Model model) {
@@ -100,6 +113,18 @@ public class UserController {
         User currentUser = userService.getCurrentUser(password, email);
 
             if (currentUser.getRole().equalsIgnoreCase("Mentor")){
+                List<CourseDto> allCourses = courseService.getAllCourses(currentUser.getId());
+                for (CourseDto allCours : allCourses) {
+                    try {
+                        String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
+                        allCours.setImg(pictureByteArrayString);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                User currentUser1 = courseService.getCurrentUser(currentUser.getId());
+                model.addAttribute("courses",allCourses);
                 model.addAttribute("mentor",currentUser);
                 return "mentor_pagel_1";
             }else if(currentUser.getRole().equalsIgnoreCase("Student")){
@@ -110,5 +135,17 @@ public class UserController {
             }
     }
 
+    private String getPictureByteArrayString(String path, String filename) throws IOException {
+        BufferedImage image = ImageIO.read(new File(path + "/" + filename));
 
+        ByteArrayOutputStream base = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", base);
+        base.flush();
+        byte[] imageInByteArray = base.toByteArray();
+        base.close();
+
+        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+
+        return b64;
+    }
 }

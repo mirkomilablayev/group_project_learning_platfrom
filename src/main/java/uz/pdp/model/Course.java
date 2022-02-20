@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "courses")
+@Entity
 @Table(name = "courses")
 public class Course {
     @Id
@@ -26,10 +26,9 @@ public class Course {
     private String img_path;
     private String img_name;
 
-    @ManyToOne
-    private User owner;
+    private int owner;
 
-    @ManyToOne
-    private Category category;
+
+    private String category;
 
 }

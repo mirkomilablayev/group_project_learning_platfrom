@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.dao.CourseDao;
+import uz.pdp.dto.CourseDto;
 import uz.pdp.model.Category;
+import uz.pdp.model.Course;
+import uz.pdp.model.User;
 
 import java.util.List;
 
@@ -25,6 +28,13 @@ public class CourseService {
     @Transactional
     public List<Category> getAllCategory(){return  courseDao.getAll();}
 
+    @Transactional
+    public void saver(Course course){courseDao.saveCourse(course);}
+
+    @Transactional
+    public User getCurrentUser(int id){return courseDao.getCurrentUser(id);}
 
 
+    @Transactional
+    public List<CourseDto>getAllCourses(int id){return courseDao.getCourses(id);}
 }

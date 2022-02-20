@@ -19,13 +19,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import uz.pdp.dto.CourseDto;
 import uz.pdp.model.Category;
+import uz.pdp.model.Course;
+import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -40,11 +44,10 @@ public class CourseController {
     @RequestMapping(value = "/addCourse/{user_id}", method = RequestMethod.GET)
     public String addCourse(@PathVariable int user_id, Model model) {
 
-        List<Category> allCategory = courseService.getAllCategory();
 
+        List<Category> allCategory = courseService.getAllCategory();
         model.addAttribute("categories", allCategory);
         model.addAttribute("user_id", user_id);
-        model.addAttribute("checking", 1);
         return "addCourseForm";
     }
 
@@ -59,35 +62,70 @@ public class CourseController {
                             @RequestParam("file") CommonsMultipartFile file) {
 
 
-
-        String imageUrl = getImageUrl(file,imgPath);
-
-
-        String imageName = getImageName(file);
-
-        try {
-            String picture = getPicture(imgPath, imageName);
-
-            model.addAttribute("picture",picture);
-
-            return "image";
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (courseName.length() == 0) {
+            List<Category> allCategory = courseService.getAllCategory();
+            model.addAttribute("categories", allCategory);
+            model.addAttribute("user_id", user_id);
+            return "addCourseForm";
         }
-        return "image";
+
+        if (price.length() == 0) {
+            List<Category> allCategory = courseService.getAllCategory();
+            model.addAttribute("categories", allCategory);
+            model.addAttribute("user_id", user_id);
+            return "addCourseForm";
+        }
+
+        Double price1 = Double.parseDouble(price);
+
+        if (price1 <= 0) {
+            List<Category> allCategory = courseService.getAllCategory();
+            model.addAttribute("categories", allCategory);
+            model.addAttribute("user_id", user_id);
+            return "addCourseForm";
+        }
+
+        Course course = new Course();
+        course.setPrice(price1);
+        course.setCategory(category);
+        course.setDescription(description);
+        course.setName(courseName);
+        course.setUploaded_at(LocalDateTime.now());
+        course.setImg_name(getImageName(file));
+        course.setImg_path(imgPath);
+        course.setOwner(user_id);
+        courseService.saver(course);
+        getImageUrl(file,imgPath);
+
+
+
+        List<CourseDto> allCourses = courseService.getAllCourses(user_id);
+        for (CourseDto allCours : allCourses) {
+            try {
+                String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
+                    allCours.setImg(pictureByteArrayString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        User currentUser = courseService.getCurrentUser(user_id);
+        model.addAttribute("courses",allCourses);
+        model.addAttribute("mentor",currentUser);
+        return "mentor_pagel_1";
     }
 
-    public String getImageName(CommonsMultipartFile image){
+    public String getImageName(CommonsMultipartFile image) {
         String fileName = image.getOriginalFilename();
         return fileName;
     }
 
 
-    public String getImageUrl(CommonsMultipartFile image,String path) {
+    public String getImageUrl(CommonsMultipartFile image, String path) {
         String filename = image.getOriginalFilename();
         System.out.println(path + " " + filename);
         try {
-            String imgUrl = path+"/"+filename;
+            String imgUrl = path + "/" + filename;
             byte barr[] = image.getBytes();
             BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(imgUrl));
             bout.write(barr);
@@ -101,21 +139,45 @@ public class CourseController {
     }
 
 
-    private String getPicture(String path, String filename) throws IOException {
-        BufferedImage image =  ImageIO.read(new File(path + "/" + filename));
+    private String getPictureByteArrayString(String path, String filename) throws IOException {
+        BufferedImage image = ImageIO.read(new File(path + "/" + filename));
 
         ByteArrayOutputStream base = new ByteArrayOutputStream();
-        ImageIO.write(image,"png",base);
+        ImageIO.write(image, "png", base);
         base.flush();
         byte[] imageInByteArray = base.toByteArray();
         base.close();
 
         String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 
-       return b64;
+        return b64;
     }
 
 
+
+    @RequestMapping(value = "deleteCourse/{course_id}/{user_id}", method = RequestMethod.GET)
+    public String deleteCourse(@PathVariable int course_id,
+                               Model model,
+                               @PathVariable int user_id){
+
+
+
+
+        List<CourseDto> allCourses = courseService.getAllCourses(user_id);
+        for (CourseDto allCours : allCourses) {
+            try {
+                String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
+                allCours.setImg(pictureByteArrayString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        User currentUser = courseService.getCurrentUser(user_id);
+        model.addAttribute("courses",allCourses);
+        model.addAttribute("mentor",currentUser);
+        return "mentor_pagel_1";
+    }
 
 
 }
