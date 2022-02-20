@@ -69,7 +69,7 @@
                     <td><a href="#/${module.id}">
                         <button style="background-color: rgba(51,0,128,0.92);">More</button>
                     </a></td>
-                    <td><a href="deleteModule/${module.id}/${course.course.id}">
+                    <td><a href="/deleteModule/${module.id}/${course.course.id}">
                         <button style="background-color: red;">Delete</button>
                     </a></td>
                 </tr>
