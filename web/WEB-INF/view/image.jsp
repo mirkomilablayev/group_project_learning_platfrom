@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<img src="data:image/png;base64, ${base64}" alt="Here should be image">
+<img src="data:image/png;base64, ${picture}" alt="Here should be image">
 
 
 </body>

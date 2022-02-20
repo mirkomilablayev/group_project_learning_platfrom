@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import uz.pdp.model.Category;
 import uz.pdp.service.CourseService;
@@ -52,33 +53,53 @@ public class CourseController {
                             @RequestParam String description,
                             @RequestParam String price,
                             @RequestParam String courseName,
-                            Model model) {
+                            Model model,
+                            @RequestParam("file") CommonsMultipartFile file) {
 
-        model.addAttribute("checking", 2);
-        return "test";
+        String path = "D:\\crud\\Learning_platform_app\\src\\main\\resources";
+
+        String imageUrl = getImageUrl(file,path);
+
+
+        String imageName = getImageName(file);
+
+        try {
+            String picture = getPicture(path, imageName);
+
+            model.addAttribute("picture",picture);
+
+            return "image";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "image";
+    }
+
+    public String getImageName(CommonsMultipartFile image){
+        String fileName = image.getOriginalFilename();
+        return fileName;
     }
 
 
-    @RequestMapping(value="/savefile",method= RequestMethod.POST,consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public String upload(@RequestParam(name = "file") CommonsMultipartFile file, Model model) throws IOException {
-
-        String path= "D:\\crud\\Learning_platform_app\\src\\main\\resources";
-        String filename=file.getOriginalFilename();
-
-        System.out.println(path+" "+filename);
-
-        try{
-            byte barr[]=file.getBytes();
-
-            BufferedOutputStream bout=new BufferedOutputStream(
-                    new FileOutputStream(path+"/"+filename));
+    public String getImageUrl(CommonsMultipartFile image,String path) {
+        String filename = image.getOriginalFilename();
+        System.out.println(path + " " + filename);
+        try {
+            String imgUrl = path+"/"+filename;
+            byte barr[] = image.getBytes();
+            BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(imgUrl));
             bout.write(barr);
             bout.flush();
             bout.close();
+            return imgUrl;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return "";
+    }
 
-        } catch (Exception e){}
 
-
+    private String getPicture(String path, String filename) throws IOException {
         BufferedImage image =  ImageIO.read(new File(path + "/" + filename));
 
         ByteArrayOutputStream base = new ByteArrayOutputStream();
@@ -89,9 +110,10 @@ public class CourseController {
 
         String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 
-        model.addAttribute("base64", b64);
-
-        return "image";
+       return b64;
     }
+
+
+
 
 }

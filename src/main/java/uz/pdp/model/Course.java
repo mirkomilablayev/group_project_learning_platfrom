@@ -24,6 +24,7 @@ public class Course {
     private double price;
     private LocalDateTime uploaded_at=LocalDateTime.now();
     private String img_path;
+    private String img_name;
 
     @ManyToOne
     private User owner;

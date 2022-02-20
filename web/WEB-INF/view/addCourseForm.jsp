@@ -17,32 +17,20 @@
 <c:set var="user_id" value="${user_id}"/>
 
 
-<c:set var="checking" value="${checking}"/>
-
-<c:choose>
-    <c:when test="${checking == 1}">
-        <form action="/addCourse/${user_id}" method="post"  >
-            <input type="text" name="courseName" placeholder="Course name"><br><br>
-            <input type="number" name="price" placeholder="Course Price"><br><br>
-            <textarea class="form-control" name="description" placeholder="Description" id="floatingTextarea2" style="height: 100px"></textarea><br><br>
-            category <br>
-            <select name="category">
-                <c:forEach var="c" items="${categories}">
-                    <option value="${c.id}">${c.name}</option>
-                </c:forEach>
-            </select><br><br>
-            <input type="submit" value="+ Add Course" style="background-color: green;">
-        </form>
-    </c:when>
-    <c:otherwise>
-        <form action="/savefile" method="post" enctype="multipart/form-data">
-            Select File: <input type="file" name="file"/>
-            <input type="submit" value="Upload File"/>
-        </form>
-    </c:otherwise>
-</c:choose>
-
-
+<form action="/addCourse/${user_id}" method="post" enctype="multipart/form-data">
+    <input type="text" name="courseName" placeholder="Course name"><br><br>
+    <input type="number" name="price" placeholder="Course Price"><br><br>
+    <textarea class="form-control" name="description" placeholder="Description" id="floatingTextarea2"
+              style="height: 100px"></textarea><br><br>
+    Select File: <input type="file" name="file"/><br><br>
+    category <br>
+    <select name="category">
+        <c:forEach var="c" items="${categories}">
+            <option value="${c.id}">${c.name}</option>
+        </c:forEach>
+    </select><br><br>
+    <input type="submit" value="+ Add Course" style="background-color: green;">
+</form>
 
 
 </body>
