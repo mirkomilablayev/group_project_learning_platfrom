@@ -24,9 +24,13 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = {"uz.pdp"})
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    //    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
+//    }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
+        registry.addResourceHandler("/images/**").addResourceLocations("/images/");
     }
 
     @Bean

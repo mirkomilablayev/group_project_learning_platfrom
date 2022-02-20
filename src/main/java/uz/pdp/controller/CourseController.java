@@ -10,6 +10,7 @@ package uz.pdp.controller;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,18 +39,30 @@ public class CourseController {
 
         List<Category> allCategory = courseService.getAllCategory();
 
-        model.addAttribute("categories",allCategory);
-        model.addAttribute("user_id",user_id);
+        model.addAttribute("categories", allCategory);
+        model.addAttribute("user_id", user_id);
+        model.addAttribute("checking", 1);
         return "addCourseForm";
     }
 
 
+    @RequestMapping(value = "/addCourse/{user_id}", method = RequestMethod.POST)
+    public String addCourse(@PathVariable int user_id,
+                            @RequestParam String category,
+                            @RequestParam String description,
+                            @RequestParam String price,
+                            @RequestParam String courseName,
+                            Model model) {
 
-    @RequestMapping(value="/addCourse/{user_id}",method= RequestMethod.POST)
-    public String upload(@RequestParam(name = "textFile") CommonsMultipartFile file,
-                         Model model) throws IOException {
+        model.addAttribute("checking", 2);
+        return "test";
+    }
 
-        String path= "C:\\Users\\User\\Desktop\\springHome\\UploadAndDownloadFileMVC\\src\\main\\resources";
+
+    @RequestMapping(value="/savefile",method= RequestMethod.POST,consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public String upload(@RequestParam(name = "file") CommonsMultipartFile file, Model model) throws IOException {
+
+        String path= "D:\\crud\\Learning_platform_app\\src\\main\\resources";
         String filename=file.getOriginalFilename();
 
         System.out.println(path+" "+filename);
@@ -80,7 +93,5 @@ public class CourseController {
 
         return "image";
     }
-
-
 
 }
