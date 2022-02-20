@@ -37,7 +37,7 @@ public class UserDao {
 
     public boolean isExist(String username){
         Session session = sessionFactory.getCurrentSession();
-        boolean b = (Long) session.createQuery("select count(*) from User where username = '" + username + "'").uniqueResult() == 0;
+        boolean b = (Long) session.createQuery("select count(*) from User where username = '" + username + "'").uniqueResult() > 0;
         return b;
     }
 
