@@ -45,7 +45,7 @@
 
 <c:choose>
     <c:when test="${course.modules.size() == 0}">
-        <h1 style="background-color: red">There is no any Module Are You Gonna Add Any Module</h1>
+        <h1 style="background-color: red">There is no any Modules ,Now you can Add new Module for this course</h1>
     </c:when>
     <c:otherwise>
         <table class="table">
@@ -66,7 +66,7 @@
                     <td><a href="#/${module.id}">
                         <button style="background-color: green;">Edit</button>
                     </a></td>
-                    <td><a href="#/${module.id}">
+                    <td><a href="/moreInfoModul/${module.id}">
                         <button style="background-color: rgba(51,0,128,0.92);">More</button>
                     </a></td>
                     <td><a href="/deleteModule/${module.id}/${course.course.id}">

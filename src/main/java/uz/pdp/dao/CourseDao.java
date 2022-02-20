@@ -14,6 +14,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.dto.ModuleDto;
 import uz.pdp.model.*;
 
 import javax.imageio.ImageIO;
@@ -188,6 +189,27 @@ public class CourseDao {
 
         NativeQuery nativeQuery1 = currentSession.createNativeQuery("delete from modules where id = " + module_id + "");
         nativeQuery1.executeUpdate();
+    }
+
+
+
+    public ModuleDto getModul(int module_id){
+
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from modules where id = " + module_id + "");
+        Object o = query.uniqueResult();
+        Module module = (Module)o;
+
+
+        Query query1 = session.createQuery("from lessons where module = " + module_id + "");
+        List list = query1.list();
+        List<Lesson>lessons = (List<Lesson>)list;
+
+        ModuleDto moduleDto = new ModuleDto();
+        moduleDto.setModule(module);
+        moduleDto.setLessons(lessons);
+
+        return moduleDto;
     }
 
 }

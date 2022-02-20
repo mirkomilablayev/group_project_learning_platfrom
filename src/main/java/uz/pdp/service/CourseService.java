@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.dao.CourseDao;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.dto.ModuleDto;
 import uz.pdp.model.Category;
 import uz.pdp.model.Course;
 import uz.pdp.model.Module;
@@ -53,4 +54,7 @@ public class CourseService {
 
     @Transactional
     public void deleteModule(int id){courseDao.deleteModule(id);}
+
+    @Transactional
+    public ModuleDto getModule(int module_id){return courseDao.getModul(module_id);}
 }

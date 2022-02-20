@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.dto.ModuleDto;
 import uz.pdp.model.Category;
 import uz.pdp.model.Course;
 import uz.pdp.model.Module;
@@ -197,15 +198,15 @@ public class CourseController {
 
 
     @RequestMapping(value = "/more/{course_id}")
-    public String moreInfo(@PathVariable int course_id,Model model) {
+    public String moreInfo(@PathVariable int course_id, Model model) {
         CourseDto course = courseService.getCourseById(course_id);
-        model.addAttribute("course",course);
+        model.addAttribute("course", course);
         return "oneCourseDefinition";
     }
 
 
-    @RequestMapping(value = "/back/{user_id}",method = RequestMethod.GET)
-    public String back(@PathVariable int user_id,Model model){
+    @RequestMapping(value = "/back/{user_id}", method = RequestMethod.GET)
+    public String back(@PathVariable int user_id, Model model) {
         List<CourseDto> allCourses = courseService.getAllCourses(user_id);
         for (CourseDto allCours : allCourses) {
             try {
@@ -226,20 +227,20 @@ public class CourseController {
     @RequestMapping(value = "/addModule/{user_id}/{course_id}", method = RequestMethod.GET)
     public String addModule(@PathVariable int user_id,
                             @PathVariable int course_id,
-                            Model model){
+                            Model model) {
 
-        model.addAttribute("user_id",user_id);
-        model.addAttribute("course_id",course_id);
+        model.addAttribute("user_id", user_id);
+        model.addAttribute("course_id", course_id);
         return "addModuleForm";
     }
 
 
-    @RequestMapping(value = "/addModule/{user_id}/{course_id}",method = RequestMethod.POST)
+    @RequestMapping(value = "/addModule/{user_id}/{course_id}", method = RequestMethod.POST)
     public String addModuleLogic(@PathVariable int user_id,
-                            @PathVariable int course_id,
-                            @RequestParam String name,
-                            @RequestParam String description,
-                            Model model){
+                                 @PathVariable int course_id,
+                                 @RequestParam String name,
+                                 @RequestParam String description,
+                                 Model model) {
         User currentUser = courseService.getCurrentUser(user_id);
 
 
@@ -251,21 +252,36 @@ public class CourseController {
 
         courseService.saveModule(module);
         CourseDto course1 = courseService.getCourseById(course_id);
-        model.addAttribute("course",course1);
+        model.addAttribute("course", course1);
         return "oneCourseDefinition";
     }
 
 
-    @RequestMapping(value = "deleteModule/{module_id}/{course_id}",method = RequestMethod.GET)
+    @RequestMapping(value = "deleteModule/{module_id}/{course_id}", method = RequestMethod.GET)
     public String deleteModule(@PathVariable int module_id,
                                @PathVariable int course_id,
-                               Model model){
+                               Model model) {
 
         courseService.deleteModule(module_id);
 
         CourseDto course1 = courseService.getCourseById(course_id);
-        model.addAttribute("course",course1);
+        model.addAttribute("course", course1);
         return "oneCourseDefinition";
+    }
+
+
+    @RequestMapping(value = "/moreInfoModul/{module_id}", method = RequestMethod.GET)
+    public String moduleInfo(@PathVariable int module_id,
+                             Model model) {
+        ModuleDto module = courseService.getModule(module_id);
+        model.addAttribute("module",module);
+        return "oneModulDefinition";
+    }
+
+    @RequestMapping(value = "/addLesson/{module_id}" ,method = RequestMethod.GET)
+    public String addLesson(@PathVariable int module_id,Model model){
+
+        return "addLessonForm";
     }
 
 

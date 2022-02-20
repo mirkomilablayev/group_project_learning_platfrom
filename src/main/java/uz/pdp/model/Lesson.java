@@ -23,4 +23,6 @@ public class Lesson {
     private String name;
     @ManyToOne
     private Module module;
+
+    private String video_url;
 }
