@@ -10,7 +10,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>One Course Definition</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 </head>
 <body>
@@ -19,18 +21,36 @@
 <c:set var="course" value="${course}"/>
 
 
-<div class="card bg-dark text-white" style="border-color: red; background-color: aquamarine">
-    <img style="padding: 2%;"
-         src="data:image/png;base64, ${course.img}"
-         class="card-img-top" alt="Here should be image">
-    <div class="card-img-overlay">
-        <h5 class="card-title">Course Name: ${course.course.name}</h5>
-        <p class="card-text">Course Description: ${course.course.description}</p>
-        <p class="card-text">Price: ${course.course.description}</p>
-        <p class="card-text">Category: ${course.course.category}</p>
-        <p class="card-text">Uploaded At ${course.course.uploaded_at}</p>
-        <br><br>
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img style="padding: 2%;"
+                 src="data:image/png;base64, ${course.img}"
+                 class="card-img-top" alt="Here should be image">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">Course Name: ${course.course.name}</h5>
+                <p class="card-text">Description: ${course.course.description}</p>
+                <p class="card-text">Price: ${course.course.price}</p>
+                <p class="card-text">Category: ${course.course.category}</p>
+                <p class="card-text"><small class="text-muted">Uploaded at: ${course.course.uploaded_at}</small></p>
+            </div>
+        </div>
     </div>
+</div>
+<%--<div class="card bg-dark text-white" style="border-color: red; background-color: aquamarine">--%>
+<%--    <img style="padding: 2%;"--%>
+<%--         src="data:image/png;base64, ${course.img}"--%>
+<%--         class="card-img-top" alt="Here should be image">--%>
+<%--    <div class="card-img-overlay">--%>
+<%--        <h5 class="card-title">Course Name: ${course.course.name}</h5>--%>
+<%--        <p class="card-text">Course Description: ${course.course.description}</p>--%>
+<%--        <p class="card-text">Price: ${course.course.description}</p>--%>
+<%--        <p class="card-text">Category: ${course.course.category}</p>--%>
+<%--        <p class="card-text">Uploaded At ${course.course.uploaded_at}</p>--%>
+<%--        <br><br>--%>
+<%--    </div>--%>
 </div>
 <hr>
 <br><br>

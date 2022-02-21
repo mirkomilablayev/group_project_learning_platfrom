@@ -18,13 +18,23 @@
 
 <c:set var="currentUser" value="${mentor}"/>
 <c:set value="${courses}" var="course"/>
-<h1>Current User is ${currentUser.firstName} ${currentUser.lastName}</h1>
 
-<a href="/addCourse/${currentUser.id}">
-    <button style="background-color: green">+ Add Course</button>
-</a>
-<hr>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid" style="background-color: blueviolet;">
+        <a><strong>${currentUser.firstName} ${currentUser.lastName} </strong></a>
+        <a class="navbar-brand" href="#"><button type="button" class="btn btn-primary">Primary</button></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/addCourse/${currentUser.id}"><button type="button" class="btn btn-success">+Add New Course</button></a>
+                <a class="nav-link active" aria-current="page" href="/login"><button type="button" class="btn btn-success">Log out</button></a>
+            </div>
+        </div>
+    </div>
+</nav>
 
 <c:choose>
     <c:when test="${course.size() == 0}">
@@ -33,24 +43,18 @@
     <c:otherwise>
         <div class="row">
                 <c:forEach var="c" items="${courses}">
-                    <div class="card" style="width: 22rem;background-color: aqua;border-color: blue;"
-                         class="col-8 offset-2">
-                        <img style="padding: 2%;"
+                    <div class="card;" class="col-10 offset-1"  style="width: 18rem;background-color: aqua;border-color: blue;margin: 2%">
+                        <img style="padding: 2%"
                              src="data:image/png;base64, ${c.img}"
                              class="card-img-top" alt="Here should be image">
                         <div class="card-body">
                             <p class="card-title"><strong>Course Name:</strong>${c.course.name}</p>
-                            <p class="card-title"><strong>Course Price:</strong>${c.course.price}</p>
-                            <p class="card-title"><strong>Course Category:</strong>${c.course.category}</p>
                             <p class="card-text"><strong>Description:</strong>${c.course.description}</p>
-                            <p class="card-text"><strong>price:</strong>${c.course.price}</p>
-                            <p><strong>Like:</strong> ${c.likeCount} -- <strong>Comments:</strong> ${c.commentCount}</p>
-                            <br>
                             <a href="/more/${c.course.id}" class="btn btn-primary">
-                                <button>More Info</button>
+                                <button style="width: 75px;background-color: cadetblue">More</button>
                             </a>
                             <a href="/deleteCourse/${c.course.id}/${currentUser.id}" class="btn btn-primary">
-                                <button style="background-color: red">Delete</button>
+                                <button style="background-color: red;width: 75px">Delete</button>
                             </a>
                         </div>
                     </div>

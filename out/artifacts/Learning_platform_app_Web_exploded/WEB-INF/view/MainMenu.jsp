@@ -13,14 +13,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<h1 style="color:green">Hello Welcome to Our Group's Learning platform</h1>
+<h1 style="color:green">Learning Platform</h1>
 <br>
 
 <a href="/login"><button type="button" class="btn btn-primary">Login</button></a>
 <a href="/register"><button type="button" class="btn btn-primary">Register</button></a>
 <hr>
-<br><br><hr>
-<p>Developed by Mirkomil,Sardor,Asilbek,Oloviddin</p>
+<br><br>
+
 
 <%
 

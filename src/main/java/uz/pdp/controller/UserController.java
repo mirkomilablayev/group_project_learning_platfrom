@@ -95,8 +95,6 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
         return "login";
     }
 
@@ -108,16 +106,11 @@ public class UserController {
 //        HttpSession session =
         boolean b = userService.isexistUser(email, password);
         if (b) {
-            User user = new User();
-            model.addAttribute("user", user);
             return "login";
         }
 
         User currentUser = userService.getCurrentUser(password, email);
-
         if (currentUser.getRole().equalsIgnoreCase("Mentor")) {
-
-
             List<CourseDto> allCourses = courseService.getAllCourses(currentUser.getId());
             for (CourseDto allCours : allCourses) {
                 try {
@@ -127,12 +120,8 @@ public class UserController {
                     e.printStackTrace();
                 }
             }
-
-
             model.addAttribute("courses", allCourses);
             model.addAttribute("mentor", currentUser);
-
-
             return "mentor_pagel_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Student")) {
             model.addAttribute("student", currentUser);

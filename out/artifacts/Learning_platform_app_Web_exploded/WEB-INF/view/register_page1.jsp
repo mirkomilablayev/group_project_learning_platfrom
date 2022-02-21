@@ -13,20 +13,41 @@
 </head>
 <body>
 
-<form action="/register" method="post">
+<form action="/register" class="col-6 offset-3" method="post" style="width: 500px">
     <h1>Registration Form</h1>
-    <input type="text" name="firstname" placeholder="Firstname" ><br><br>
-    <input type="text" name="lastname" placeholder="Last name"><br><br>
-    <input type="text" name="username" placeholder="Username">  <br><br>
-    <input type="number" name="balance" placeholder="Your Balance"><br><br>
-    <input type="email" name="email" placeholder="Your email"><br><br>
-    <input type="password" name="password" placeholder="Password">  <br><br>
-    <textarea  placeholder="Bio" name="bio" style="height: 100px"></textarea><br>
-    <select name="who" >
+    <div class="input-group">
+        <span class="input-group-text">Full name</span>
+        <input type="text" name="firstname" aria-label="First name" class="form-control">
+        <input type="text" name="lastname" aria-label="Last name" class="form-control">
+    </div><br>
+    <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">@</span>
+        <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+    </div><br>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">💸</span>
+        <input type="number" class="form-control" name="balance" placeholder="Balance" aria-label="Username" aria-describedby="basic-addon3">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">💌</span>
+        <input type="email" class="form-control" name="email" placeholder="email" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon2">⚠</span>
+        <input type="password" class="form-control" name="password" placeholder="Password" aria-label="Username" aria-describedby="basic-addon2">
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" name="bio" placeholder="Bio" id="floatingTextarea"></textarea>
+        <label for="floatingTextarea">Bio</label>
+    </div>
+    <br>
+    <select name="who" class="form-select" aria-label="Default select example">
         <option value="Mentor">Mentor</option>
         <option value="Student">Student</option>
-    </select><br><br>
-    <input type="submit" style="background-color: green;" value="Register">
+    </select>
+    <br>
+    <button type="submit" class="btn btn-success">Register</button>
+    <p>If already exist <a href="/login">log in</a></p>
 </form>
 
 
