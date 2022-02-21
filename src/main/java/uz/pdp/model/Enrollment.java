@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity(name = "users_courses")
-public class UserCourse {
+public class Enrollment {
     @Id
     @GeneratedValue
     private Integer id;

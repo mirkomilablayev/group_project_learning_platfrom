@@ -7,6 +7,7 @@ package uz.pdp.controller;
 
 //Author --  Ablayev Mirkomil 2/19/2022 --3:24 PM 
 
+import org.apache.catalina.session.StandardSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import uz.pdp.service.CourseService;
 import uz.pdp.service.UserService;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -103,6 +105,7 @@ public class UserController {
                          @RequestParam String password,
                          Model model) {
 
+//        HttpSession session =
         boolean b = userService.isexistUser(email, password);
         if (b) {
             User user = new User();

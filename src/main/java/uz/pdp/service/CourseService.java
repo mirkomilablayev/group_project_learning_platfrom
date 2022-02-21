@@ -28,11 +28,10 @@ public class CourseService {
     public List<Category> getAllCategory(){return  courseDao.getAll();}
 
     @Transactional
-    public void saver(Course course){courseDao.saveCourse(course);}
+    public void saveCourse(Course course){courseDao.saveCourse(course);}
 
     @Transactional
     public User getCurrentUser(int id){return courseDao.getCurrentUser(id);}
-
 
     @Transactional
     public List<CourseDto>getAllCourses(int id){return courseDao.getCourses(id);}

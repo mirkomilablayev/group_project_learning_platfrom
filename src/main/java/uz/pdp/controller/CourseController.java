@@ -91,7 +91,7 @@ public class CourseController {
         course.setImg_name(getImageName(file));
         course.setImg_path(imgPath);
         course.setOwner(user_id);
-        courseService.saver(course);
+        courseService.saveCourse(course);
         getImageUrl(file, imgPath);
 
 
@@ -311,6 +311,4 @@ public class CourseController {
         model.addAttribute("modul_id",module_id);
         return "watchVideo";
     }
-
-
 }

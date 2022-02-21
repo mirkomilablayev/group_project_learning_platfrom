@@ -72,10 +72,10 @@ public class CourseDao {
             CourseDto courseDto1 = new CourseDto();
             Query query1 = session.createQuery("from users_courses where course = " + course1.getId() + "");
             List list1 = query1.list();
-            List<UserCourse> userCourses = (List<UserCourse>) list1;
+            List<Enrollment> userCourses = (List<Enrollment>) list1;
             courseDto1.setCourse(course1);
             courseDto1.setUsers(userCourses);
-            for (UserCourse userCours : userCourses) {
+            for (Enrollment userCours : userCourses) {
                 if (userCours.is_like() == true) {
                     likes++;
                 }
@@ -140,7 +140,7 @@ public class CourseDao {
 
         Query query3 = session.createQuery("from users_courses where course = " + course_id + "");
         List list2 = query3.list();
-        List<UserCourse>getStudents = (List<UserCourse>) list2;
+        List<Enrollment>getStudents = (List<Enrollment>) list2;
         courseDto.setUsers(getStudents);
 
         try {

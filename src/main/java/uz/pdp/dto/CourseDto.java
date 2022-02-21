@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import uz.pdp.model.Comment;
 import uz.pdp.model.Course;
 import uz.pdp.model.Module;
-import uz.pdp.model.UserCourse;
+import uz.pdp.model.Enrollment;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 public class CourseDto {
     private Course course;
-    private List<UserCourse>users;
+    private List<Enrollment>users;
     private List<Comment>comments;
     private List<Module>modules;
     private String img;
