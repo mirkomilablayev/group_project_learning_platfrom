@@ -21,29 +21,26 @@
 <c:set var="course" value="${course}"/>
 
 
-<div class="card mb-3" style="max-width: 540px;">
+<div class="card mb-3" style="max-width: 1200px;border-color: black">
     <div class="row g-0">
         <div class="col-md-4">
-            <img style="padding: 2%;"
+            <img style="padding: 2%;border-color: black"
                  src="data:image/png;base64, ${course.img}"
                  class="card-img-top" alt="Here should be image">
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">Course Name: ${course.course.name}</h5>
-                <p class="card-text">Description: ${course.course.description}</p>
-                <p class="card-text">Price: ${course.course.price}</p>
-                <p class="card-text">Category: ${course.course.category}</p>
-                <p class="card-text"><small class="text-muted">Uploaded at: ${course.course.uploaded_at}</small></p>
+                <h5 class="card-title">Course Name: <strong>${course.course.name}</strong></h5>
+                <p class="card-text">Description: <strong>${course.course.description}</strong></p>
+                <p class="card-text">Price: <strong>${course.course.price}</strong></p>
+                <p class="card-text">Category: <strong>${course.course.category}</strong></p>
+                <p class="card-text"><small class="text-muted">Uploaded at: <strong>${course.course.uploaded_at}</strong></small></p>
             </div>
         </div>
     </div>
 </div>
 
-
-</div>
 <hr>
-<br><br>
 <a href="/back/${course.course.owner}">
     <button style="background-color: red">Back</button>
 </a>
