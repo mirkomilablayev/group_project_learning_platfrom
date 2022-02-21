@@ -19,7 +19,7 @@
 <c:set var="course" value="${course}"/>
 
 
-<div class="card bg-dark text-white" style="border-color: red; background-color: aquamarine">
+<div class="card bg-dark text-white" style="border-color: red; background-color: silver">
     <img style="padding: 2%;"
          src="data:image/png;base64, ${course.img}"
          class="card-img-top" alt="Here should be image">

@@ -34,7 +34,8 @@ import java.util.List;
 @Controller
 public class CourseController {
 
-    private final String imgPath = "D:\\crud\\Learning_platform_app\\src\\main\\resources";
+    private final String imgPath = "C:\\Users\\user\\Desktop\\HomeWork\\my_group_project\\src\\main\\resources";
+//    private final String imgPath = "D:\\crud\\Learning_platform_app\\src\\main\\resources";
 
     @Autowired
     CourseService courseService;
@@ -311,4 +312,6 @@ public class CourseController {
         model.addAttribute("modul_id",module_id);
         return "watchVideo";
     }
+
+
 }
