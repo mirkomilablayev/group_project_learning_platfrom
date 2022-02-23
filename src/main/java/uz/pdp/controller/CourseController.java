@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
+import uz.pdp.dto.TaskDto;
 import uz.pdp.model.*;
 import uz.pdp.service.CourseService;
 
@@ -302,6 +303,9 @@ public class CourseController {
                              @PathVariable int lesson_id,
                              Model model) {
 
+        List<TaskDto> taskDtoList = courseService.getTaskDtoList(lesson_id);
+
+        model.addAttribute("tasks",taskDtoList);
         model.addAttribute("url", video_url);
         model.addAttribute("modul_id", module_id);
         return "watchVideo";

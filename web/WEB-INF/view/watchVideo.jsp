@@ -10,11 +10,13 @@
 <html>
 <head>
     <title>Watch Video</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 
 <c:set value="${url}" var="url"/>
 <c:set value="${modul_id}" var="id"/>
+<c:set var="tasks" value="${tasks}"/>
 
 <iframe style="margin-left: 250px" width="800" height="500"
         src="https://www.youtube.com/embed/${url}"
@@ -26,6 +28,9 @@
 <br><br><br>
 <a href="/moreInfoModul/${id}"><button style="background-color: darkgray">Back</button></a>
 
+<br><hr>
+
+<h6>${tasks}</h6>
 
 </body>
 </html>

@@ -28,7 +28,7 @@ public class UserDao {
     public List<Course> getAllCourse() {
         Session session = sessionFactory.getCurrentSession();
 
-        Query from_courses_ = session.createQuery("from courses ");
+        Query from_courses_ = session.createQuery("from Course ");
         List list = from_courses_.list();
         System.out.println(list);
         return list;

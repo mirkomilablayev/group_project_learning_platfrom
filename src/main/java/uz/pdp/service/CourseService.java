@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.dao.CourseDao;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
+import uz.pdp.dto.TaskDto;
 import uz.pdp.model.*;
 
 import java.util.List;
@@ -62,4 +63,7 @@ public class CourseService {
 
     @Transactional
     public void saveTaskAndAnswers(Task task,Option A,Option B,Option C,Option D){courseDao.saveTaskWithAnswer(task, A, B, C, D);}
+
+    @Transactional
+    public List<TaskDto> getTaskDtoList(int lesson_id){return courseDao.getLessonTasks(lesson_id);}
 }

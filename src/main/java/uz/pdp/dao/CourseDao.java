@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
+import uz.pdp.dto.TaskDto;
 import uz.pdp.model.*;
 
 import javax.imageio.ImageIO;
@@ -117,14 +118,14 @@ public class CourseDao {
         nativeQuery3.executeUpdate();
     }
 
-    public CourseDto getOneCourse(int course_id){
+    public CourseDto getOneCourse(int course_id) {
         CourseDto courseDto = new CourseDto();
 
         Session session = sessionFactory.getCurrentSession();
 
         Query query = session.createQuery("from Course  where id = " + course_id + "");
         Object o = query.uniqueResult();
-        Course course = (Course)o;
+        Course course = (Course) o;
         courseDto.setCourse(course);
 
 
@@ -135,12 +136,12 @@ public class CourseDao {
 
         Query query2 = session.createQuery("from modules where course = " + course_id + "");
         List list1 = query2.list();
-        List<Module>getModules = (List<Module>) list1;
+        List<Module> getModules = (List<Module>) list1;
         courseDto.setModules(getModules);
 
         Query query3 = session.createQuery("from users_courses where course = " + course_id + "");
         List list2 = query3.list();
-        List<Enrollment>getStudents = (List<Enrollment>) list2;
+        List<Enrollment> getStudents = (List<Enrollment>) list2;
         courseDto.setUsers(getStudents);
 
         try {
@@ -166,23 +167,22 @@ public class CourseDao {
     }
 
 
-
-    public void saveModule(Module module){
+    public void saveModule(Module module) {
         Session session = sessionFactory.getCurrentSession();
         session.save(module);
     }
 
 
-    public Course getCourse(int course_id){
+    public Course getCourse(int course_id) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Course  where id = " + course_id + "");
         Object o = query.uniqueResult();
-        Course course = (Course)o;
+        Course course = (Course) o;
         return course;
     }
 
 
-    public void deleteModule(int module_id){
+    public void deleteModule(int module_id) {
         Session currentSession = sessionFactory.getCurrentSession();
         NativeQuery nativeQuery = currentSession.createNativeQuery("delete from lessons where module_id = " + module_id + ";");
         nativeQuery.executeUpdate();
@@ -192,18 +192,17 @@ public class CourseDao {
     }
 
 
-
-    public ModuleDto getModul(int module_id){
+    public ModuleDto getModul(int module_id) {
 
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from modules where id = " + module_id + "");
         Object o = query.uniqueResult();
-        Module module = (Module)o;
+        Module module = (Module) o;
 
 
         Query query1 = session.createQuery("from lessons where module = " + module_id + "");
         List list = query1.list();
-        List<Lesson>lessons = (List<Lesson>)list;
+        List<Lesson> lessons = (List<Lesson>) list;
         for (Lesson lesson : lessons) {
             Object o1 = session.createQuery("select count(*) from Task where lesson = " + lesson.getId() + "").uniqueResult();
             Long count = (Long) o1;
@@ -218,13 +217,13 @@ public class CourseDao {
     }
 
 
-    public void saveLesson(Lesson lesson){
+    public void saveLesson(Lesson lesson) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.save(lesson);
     }
 
 
-    public Lesson getLessonById(int id){
+    public Lesson getLessonById(int id) {
         Session currentSession = sessionFactory.getCurrentSession();
 
         Query query = currentSession.createQuery("from lessons  where  id = " + id + "");
@@ -234,7 +233,7 @@ public class CourseDao {
         return lesson;
     }
 
-    public void saveTaskWithAnswer(Task task,Option A,Option B,Option C,Option D){
+    public void saveTaskWithAnswer(Task task, Option A, Option B, Option C, Option D) {
 
         Session currentSession = sessionFactory.getCurrentSession();
 
@@ -246,16 +245,25 @@ public class CourseDao {
 
     }
 
-    public void getLessonTasks(int lesson_id){
+    public List<TaskDto> getLessonTasks(int lesson_id) {
         Session currentSession = sessionFactory.getCurrentSession();
 
         Query query = currentSession.createQuery("from Task where lesson = " + lesson_id + "");
-        Object o = query.uniqueResult();
-        Task task = (Task)o;
+        List list1 = query.list();
+        List<Task> tasks = (List<Task>) list1;
 
-        Query query1 = currentSession.createQuery("from Option where task = " + task.getId() + "");
-        List list = query1.list();
-        List<Option>answers = (List<Option>)list;
+        List<TaskDto> taskDtos = new ArrayList<>();
+        for (Task task : tasks) {
+            TaskDto taskDto = new TaskDto();
+            Query query1 = currentSession.createQuery("from Option where task = " + task.getId() + "");
+            List list = query1.list();
+            List<Option> answers = (List<Option>) list;
+
+            taskDto.setTask(task);
+            taskDto.setOption(answers);
+            taskDtos.add(taskDto);
+        }
+        return taskDtos;
     }
 
 }
