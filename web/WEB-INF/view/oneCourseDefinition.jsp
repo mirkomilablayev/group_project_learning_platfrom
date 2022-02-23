@@ -21,7 +21,7 @@
 <c:set var="course" value="${course}"/>
 
 
-<div class="card mb-3" style="max-width: 1200px;border-color: black">
+<div class="card mb-3" style="max-width: 600px;border-color: black;background-color: aqua">
     <div class="row g-0">
         <div class="col-md-4">
             <img style="padding: 2%;border-color: black"
