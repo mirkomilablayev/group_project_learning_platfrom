@@ -27,6 +27,7 @@ public class Course {
     private String img_name;
     private int owner;
     private String category;
-    private boolean isReady;
+    private Boolean isAccepted = false;
+    private Boolean isBlocked = false;
 
 }

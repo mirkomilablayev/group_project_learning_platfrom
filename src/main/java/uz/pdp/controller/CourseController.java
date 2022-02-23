@@ -1,6 +1,7 @@
 package uz.pdp.controller;
 
 
+import org.apache.commons.io.file.CopyDirectoryVisitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,7 @@ import java.util.List;
 @Controller
 public class CourseController {
 
-//    private final String imgPath = "C:\\Users\\user\\Desktop\\HomeWork\\my_group_project\\src\\main\\resources";
+    //    private final String imgPath = "C:\\Users\\user\\Desktop\\HomeWork\\my_group_project\\src\\main\\resources";
     private final String imgPath = "D:\\crud\\Learning_platform_app\\src\\main\\resources";
 
     @Autowired
@@ -295,14 +296,87 @@ public class CourseController {
     }
 
 
-    @RequestMapping(value = "/watch/{video_url}/{module_id}")
+    @RequestMapping(value = "/watch/{video_url}/{module_id}/{lesson_id}")
     public String watchVideo(@PathVariable String video_url,
                              @PathVariable int module_id,
-                             Model model){
+                             @PathVariable int lesson_id,
+                             Model model) {
 
-        model.addAttribute("url",video_url);
-        model.addAttribute("modul_id",module_id);
+        model.addAttribute("url", video_url);
+        model.addAttribute("modul_id", module_id);
         return "watchVideo";
+    }
+
+
+    @RequestMapping(value = "/addLessonTask/{module_id}/{lesson_id}", method = RequestMethod.GET)
+    public String addTask(@PathVariable int module_id, Model model, @PathVariable int lesson_id) {
+        model.addAttribute("model_id", module_id);
+        model.addAttribute("lesson_id", lesson_id);
+        return "add_task_form";
+    }
+
+
+    @RequestMapping(value = "/addLessonTask/{module_id}/{lesson_id}", method = RequestMethod.POST)
+    public String addTaskLogic(@PathVariable int module_id, @PathVariable int lesson_id,
+                               Model model,
+                               @RequestParam String question,
+                               @RequestParam String A,
+                               @RequestParam String B,
+                               @RequestParam String C,
+                               @RequestParam String D,
+                               @RequestParam String correct
+    ) {
+
+        if (question.length() == 0
+        || A.length() == 0
+        || B.length() == 0
+        || C.length() == 0
+        || D.length() == 0){
+            model.addAttribute("model_id", module_id);
+            model.addAttribute("lesson_id", lesson_id);
+            return "add_task_form";
+        }
+
+        Lesson lesson = courseService.getLessonById(lesson_id);
+
+        Task task = new Task();
+        task.setTask(question);
+        task.setLesson(lesson);
+
+        Option optionA = new Option();
+        if (correct.equalsIgnoreCase("a"))
+            optionA.setIsCorrect(true);
+        else
+            optionA.setIsCorrect(false);
+        optionA.setTask(task);
+        optionA.setAnswer(A);
+        Option optionB = new Option();
+        if (correct.equalsIgnoreCase("b"))
+            optionB.setIsCorrect(true);
+        else
+            optionB.setIsCorrect(false);
+
+        optionB.setTask(task);
+        optionB.setAnswer(B);
+        Option optionC = new Option();
+        if (correct.equalsIgnoreCase("c"))
+            optionC.setIsCorrect(true);
+        else
+            optionC.setIsCorrect(false);
+
+        optionC.setTask(task);
+        optionC.setAnswer(C);
+        Option optionD = new Option();
+        if (correct.equalsIgnoreCase("d"))
+            optionD.setIsCorrect(true);
+        else
+            optionD.setIsCorrect(false);
+        optionD.setTask(task);
+        optionD.setAnswer(D);
+
+        courseService.saveTaskAndAnswers(task, optionA, optionB, optionC, optionD);
+
+        return "redirect:/moreInfoModul/" + module_id;
     }
 
 

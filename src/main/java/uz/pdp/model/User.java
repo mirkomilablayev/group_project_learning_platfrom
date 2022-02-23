@@ -49,4 +49,6 @@ public class User {
      private String role;
 
     private String imgPath;
+
+    private Boolean isBlocked = false;
 }

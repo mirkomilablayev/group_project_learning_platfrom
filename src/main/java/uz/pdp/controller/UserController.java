@@ -9,6 +9,7 @@ package uz.pdp.controller;
 
 import org.apache.catalina.session.StandardSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.UsesSunMisc;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,6 +98,7 @@ public class UserController {
         return "login";
     }
 
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
         return "login";
@@ -105,7 +107,8 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login_(@RequestParam String email,
                          @RequestParam String password,
-                         Model model) {
+                         Model model,
+                         HttpSession session) {
 
 //        HttpSession session =
         boolean b = userService.isexistUser(email, password);
@@ -133,6 +136,8 @@ public class UserController {
             model.addAttribute("courses", allCourses);
             model.addAttribute("student", currentUser);
             return "student_page_1";
+        } else if (currentUser.getRole().equalsIgnoreCase("Admin")) {
+            return "";
         } else {
             return "login";
         }

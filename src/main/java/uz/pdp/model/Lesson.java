@@ -24,5 +24,7 @@ public class Lesson {
     @ManyToOne
     private Module module;
 
+    private Long taskCount;
+
     private String video_url;
 }

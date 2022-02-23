@@ -56,4 +56,10 @@ public class CourseService {
 
     @Transactional
     public void saveLesson(Lesson lesson){courseDao.saveLesson(lesson);}
+
+    @Transactional
+    public Lesson getLessonById(int id){return courseDao.getLessonById(id);}
+
+    @Transactional
+    public void saveTaskAndAnswers(Task task,Option A,Option B,Option C,Option D){courseDao.saveTaskWithAnswer(task, A, B, C, D);}
 }

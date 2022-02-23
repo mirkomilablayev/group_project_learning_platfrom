@@ -204,6 +204,11 @@ public class CourseDao {
         Query query1 = session.createQuery("from lessons where module = " + module_id + "");
         List list = query1.list();
         List<Lesson>lessons = (List<Lesson>)list;
+        for (Lesson lesson : lessons) {
+            Object o1 = session.createQuery("select count(*) from Task where lesson = " + lesson.getId() + "").uniqueResult();
+            Long count = (Long) o1;
+            lesson.setTaskCount(count);
+        }
 
         ModuleDto moduleDto = new ModuleDto();
         moduleDto.setModule(module);
@@ -216,6 +221,41 @@ public class CourseDao {
     public void saveLesson(Lesson lesson){
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.save(lesson);
+    }
+
+
+    public Lesson getLessonById(int id){
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query query = currentSession.createQuery("from lessons  where  id = " + id + "");
+        Object o = query.uniqueResult();
+        Lesson lesson = (Lesson) o;
+
+        return lesson;
+    }
+
+    public void saveTaskWithAnswer(Task task,Option A,Option B,Option C,Option D){
+
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        currentSession.save(task);
+        currentSession.save(A);
+        currentSession.save(B);
+        currentSession.save(C);
+        currentSession.save(D);
+
+    }
+
+    public void getLessonTasks(int lesson_id){
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query query = currentSession.createQuery("from Task where lesson = " + lesson_id + "");
+        Object o = query.uniqueResult();
+        Task task = (Task)o;
+
+        Query query1 = currentSession.createQuery("from Option where task = " + task.getId() + "");
+        List list = query1.list();
+        List<Option>answers = (List<Option>)list;
     }
 
 }

@@ -17,7 +17,7 @@
 
 <c:set value="${module}" var="module"/>
 
-<div class="card">
+<div class="card" style="background-color: olivedrab">
     <div class="card-header">
         Module
     </div>
@@ -32,7 +32,7 @@
 
 <hr>
 <br>
-<a href="/addLesson/${module.module.id}"><button>+Add Lesson</button></a>
+<a href="/addLesson/${module.module.id}"><button style="background-color: green">+Add Lesson</button></a>
 <br>
 <br>
 <c:choose>
@@ -46,16 +46,19 @@
                 <th scope="col">#</th>
                 <th scope="col">name</th>
                 <th scope="col">button</th>
+                <th scope="col">Tasks</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="lesson" items="${module.lessons}">
                 <tr>
-                    <th scope="row">1</th>
-                    <td>${lesson.name}</td>
-                    <td><a href="/watch/${lesson.video_url}/${module_id}">
-                        <button STYLE="background-color: green">WATCH VIDEO</button>
+                    <th scope="row">💚</th>
+                    <td><a href="/watch/${lesson.video_url}/${module_id}/${lesson.id}">${lesson.name}</a></td>
+                    <td><a href="/addLessonTask/${module_id}/${lesson.id}">
+                        <button STYLE="background-color: green">+Add Task To This Lesson</button>
                     </a></td>
+                    <td><strong>Tasks count : ${lesson.taskCount}</strong></td>
+
                 </tr>
             </c:forEach>
             </tbody>
