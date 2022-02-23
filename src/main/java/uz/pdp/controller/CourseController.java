@@ -8,7 +8,7 @@ package uz.pdp.controller;
 //Author --  Ablayev Mirkomil 2/20/2022 --9:16 AM 
 
 
-import org.omg.CORBA.PUBLIC_MEMBER;
+//import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

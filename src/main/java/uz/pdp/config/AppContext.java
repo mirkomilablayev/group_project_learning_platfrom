@@ -37,9 +37,9 @@ public class AppContext {
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5433/learning_platform_db");
+        dataSource.setUrl("jdbc:postgresql://localhost:5433/learning_platform_db1");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("root123");
+        dataSource.setPassword("1");
 
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
@@ -53,7 +53,7 @@ public class AppContext {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
         properties.put("hibernate.show_sql", true);
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         return properties;
     }
 
