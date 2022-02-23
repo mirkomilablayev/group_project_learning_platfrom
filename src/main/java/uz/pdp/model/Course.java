@@ -25,10 +25,8 @@ public class Course {
     private LocalDateTime uploaded_at=LocalDateTime.now();
     private String img_path;
     private String img_name;
-
     private int owner;
-
-
     private String category;
+    private boolean isReady;
 
 }

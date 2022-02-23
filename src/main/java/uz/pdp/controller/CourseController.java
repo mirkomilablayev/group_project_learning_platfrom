@@ -231,11 +231,13 @@ public class CourseController {
                                  @RequestParam String description,
                                  Model model) {
         User currentUser = courseService.getCurrentUser(user_id);
+        Course course = courseService.getCourse(course_id);
 
         Module module = new Module();
         module.setName(name);
         module.setDescription(description);
         module.setUser(currentUser);
+        module.setCourse(course);
 
 
         courseService.saveModule(module);

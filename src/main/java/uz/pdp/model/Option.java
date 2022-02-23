@@ -5,7 +5,7 @@ package uz.pdp.model;
  B7 is the best of the best
 */
 
-//Author --  Ablayev Mirkomil 2/23/2022 --10:16 AM 
+//Author --  Ablayev Mirkomil 2/23/2022 --11:53 AM 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,18 +20,16 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @Data
 @Entity
-public class Task {
+public class Option {
 
     @Id
     @GeneratedValue
     private Integer id;
 
-    private String task;
+    private String answer;
+
+    private Boolean isCorrect;
 
     @ManyToOne
-    private Lesson lesson;
-
-
-
-
+    private Task task;
 }
