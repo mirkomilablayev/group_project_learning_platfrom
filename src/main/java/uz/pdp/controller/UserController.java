@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
+import uz.pdp.service.StudentService;
 import uz.pdp.service.UserService;
 
 import javax.imageio.ImageIO;
@@ -38,6 +39,9 @@ public class UserController {
 
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    StudentService studentService;
 
     @RequestMapping(value = "/start", method = RequestMethod.GET)
     public String start(Model model) {
@@ -124,6 +128,9 @@ public class UserController {
             model.addAttribute("mentor", currentUser);
             return "mentor_pagel_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Student")) {
+
+            final List<CourseDto> allCourses = studentService.getAllCourses();
+            model.addAttribute("courses", allCourses);
             model.addAttribute("student", currentUser);
             return "student_page_1";
         } else {

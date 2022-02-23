@@ -1,22 +1,13 @@
 package uz.pdp.controller;
-/*
- Group number name is B7
- Mentor is Abror Ergashev
- B7 is the best of the best
-*/
-
-//Author --  Ablayev Mirkomil 2/20/2022 --9:16 AM 
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
@@ -30,9 +21,11 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Controller
 public class CourseController {
 
+//    private final String imgPath = "C:\\Users\\user\\Desktop\\HomeWork\\my_group_project\\src\\main\\resources";
     private final String imgPath = "D:\\crud\\Learning_platform_app\\src\\main\\resources";
 
     @Autowired
@@ -239,12 +232,11 @@ public class CourseController {
                                  Model model) {
         User currentUser = courseService.getCurrentUser(user_id);
 
-
         Module module = new Module();
         module.setName(name);
         module.setDescription(description);
         module.setUser(currentUser);
-        module.setCourse(courseService.getCourse(course_id));
+
 
         courseService.saveModule(module);
         CourseDto course1 = courseService.getCourseById(course_id);
@@ -310,4 +302,6 @@ public class CourseController {
         model.addAttribute("modul_id",module_id);
         return "watchVideo";
     }
+
+
 }
