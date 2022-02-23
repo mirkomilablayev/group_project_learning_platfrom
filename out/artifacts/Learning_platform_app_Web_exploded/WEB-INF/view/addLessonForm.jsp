@@ -18,10 +18,20 @@
 
 <c:set var="module_id" value="${module_id}"/>
 
-<form action="/addLesson/${module_id}" method="post">
+<form action="/addLesson/${module_id}" method="post" style="width: 600px" class="col-6 offset-3">
     Input Lesson name <br><br>
-    <input type="text" name="name"><br><br>
-    <input type="text" name="url"><br><br>
+    <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping">📚</span>
+        <input type="text" name="name" class="form-control" placeholder="Lesson name" aria-label="Username"
+               aria-describedby="addon-wrapping">
+    </div>
+    <br><br>
+    <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping1">📚</span>
+        <input type="text" name="url" class="form-control" placeholder="Lesson name" aria-label="Username"
+               aria-describedby="addon-wrapping1">
+    </div>
+    <br><br>
     <input type="submit" style="background-color: green" value="Save Lesson">
 </form>
 
