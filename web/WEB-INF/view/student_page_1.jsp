@@ -22,7 +22,9 @@
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="javascript:void(0)">Asilbek</a>
+        <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -48,21 +50,6 @@
         </div>
     </div>
 </nav>
-
-<div class="row">
-    <c:forEach var="c" items="${courses}">
-        <div class="card;" class="col-10 offset-1"  style="width: 18rem;background-color: silver;margin: 2%">
-            <img style="padding: 2%"
-                 src="data:image/png;base64, ${c.img}"
-                 class="card-img-top" alt="Here should be image">
-            <div class="card-body">
-                <p class="card-title"><strong>Course Name:</strong>${c.course.name}</p>
-                <p class="card-text"><strong>Description:</strong>${c.course.description}</p>
-                <a href="/more/${c.course.id}" class="btn btn-success"><button>More...</button></a>
-            </div>
-        </div>
-    </c:forEach>
-</div>
 
 <%--<h1>Assalomu alaykum Student Panel,,${currentUser.firstName}</h1>--%>
 </body>

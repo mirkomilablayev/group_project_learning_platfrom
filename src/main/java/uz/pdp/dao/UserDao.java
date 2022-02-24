@@ -11,6 +11,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import uz.pdp.model.Course;
 import uz.pdp.model.User;
 
@@ -23,6 +24,7 @@ public class UserDao {
 
     @Autowired
     SessionFactory sessionFactory;
+
 
 
     public List<Course> getAllCourse() {
