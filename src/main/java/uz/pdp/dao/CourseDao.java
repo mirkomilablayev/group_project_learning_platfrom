@@ -337,4 +337,13 @@ public class CourseDao {
         session.saveOrUpdate(course);
     }
 
+
+    public void cancelRequest(Course course){
+        Session currentSession = sessionFactory.getCurrentSession();
+        NativeQuery nativeQuery = currentSession.createNativeQuery("delete from requests where course_id = " + course.getId() + ";");
+        nativeQuery.executeUpdate();
+        course.setInProgres(false);
+        currentSession.saveOrUpdate(course);
+    }
+
 }

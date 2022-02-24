@@ -405,8 +405,10 @@ public class CourseController {
 
 
     @RequestMapping(value = "/remoreRequest/{course_id}",method = RequestMethod.GET)
-    public void removeRequest(@PathVariable int course_id){
-
+    public String removeRequest(@PathVariable int course_id){
+        Course course = courseService.getCourse(course_id);
+        courseService.cancelRequest(course);
+        return "redirect:/more/"+course_id;
     }
 
 

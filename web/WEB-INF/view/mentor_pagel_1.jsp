@@ -67,6 +67,9 @@
                             <button style="width: 75px;background-color: cadetblue">More</button>
                         </a>
                         <c:choose>
+                            <c:when test="${c.course.inProgres eq true}">
+                                <a class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">Checking..</a>
+                            </c:when>
                             <c:when test="${c.course.isAccepted eq false}">
                                 <a href="/deleteCourse/${c.course.id}/${currentUser.id}" class="btn btn-primary">
                                     <button style="background-color: red;width: 75px">Delete</button>

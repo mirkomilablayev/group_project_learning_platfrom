@@ -70,4 +70,7 @@ public class CourseService {
 
     @Transactional
     public void sendRequest(Request request,Course course){courseDao.sendRequest(request,course);}
+
+    @Transactional
+    public void cancelRequest(Course course){courseDao.cancelRequest(course);}
 }
