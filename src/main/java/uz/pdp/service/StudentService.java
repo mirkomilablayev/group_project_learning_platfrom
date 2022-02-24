@@ -13,8 +13,4 @@ public class StudentService {
     @Autowired
     StudentDao studentDao;
 
-    public List<CourseDto> getAllCourses(){
-        return studentDao.getCourses();
-    }
-
 }
