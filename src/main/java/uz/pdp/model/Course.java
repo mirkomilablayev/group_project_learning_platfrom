@@ -29,5 +29,6 @@ public class Course {
     private String category;
     private Boolean isAccepted = false;
     private Boolean isBlocked = false;
+    private Boolean InProgres = false;
 
 }

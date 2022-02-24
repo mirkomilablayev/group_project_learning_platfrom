@@ -386,4 +386,22 @@ public class CourseController {
     }
 
 
+
+
+    @RequestMapping(value = "/sendRequest/{course_id}", method = RequestMethod.GET)
+    public String sendrequestToAdmin(@PathVariable int course_id, Model model) {
+        Course course = courseService.getCourse(course_id);
+        User currentUser = courseService.getCurrentUser(course.getOwner());
+        Request request = new Request();
+        request.setCourse(course);
+        request.setMentor(currentUser);
+        request.setAccepted(false);
+        course.setInProgres(true);
+
+        courseService.sendRequest(request,course);
+
+        return "";
+    }
+
+
 }

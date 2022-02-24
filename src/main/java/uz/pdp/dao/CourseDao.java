@@ -329,4 +329,12 @@ public class CourseDao {
         return taskDtos;
     }
 
+
+
+    public void sendRequest(Request request,Course course){
+        Session session = sessionFactory.getCurrentSession();
+        session.save(request);
+        session.saveOrUpdate(course);
+    }
+
 }

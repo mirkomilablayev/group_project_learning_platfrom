@@ -26,11 +26,10 @@ public class Request {
 
 
     @ManyToOne
-    private User admin;
-
-    @ManyToOne
     private User mentor;
 
     @OneToOne
     private Course course;
+
+    private boolean isAccepted;
 }

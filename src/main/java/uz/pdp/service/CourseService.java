@@ -66,4 +66,8 @@ public class CourseService {
 
     @Transactional
     public List<TaskDto> getTaskDtoList(int lesson_id){return courseDao.getLessonTasks(lesson_id);}
+
+
+    @Transactional
+    public void sendRequest(Request request,Course course){courseDao.sendRequest(request,course);}
 }
