@@ -38,6 +38,7 @@
               <c:choose>
                   <c:when test="${course.course.inProgres eq true}">
                       <a class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">Checking....</a>
+                      <a href="/remoreRequest/${course.course.id}"><button >❌</button></a>
                   </c:when>
                   <c:when test="${course.course.isAccepted eq false}">
                 <a href="/sendRequest/${course.course.id}"><button type="button" class="btn btn-outline-success">Request to Admin</button></a>

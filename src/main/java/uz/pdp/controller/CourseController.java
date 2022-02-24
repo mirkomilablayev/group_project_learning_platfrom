@@ -400,8 +400,15 @@ public class CourseController {
 
         courseService.sendRequest(request,course);
 
-        return "";
+        return "redirect:/more/"+course_id;
     }
+
+
+    @RequestMapping(value = "/remoreRequest/{course_id}",method = RequestMethod.GET)
+    public void removeRequest(@PathVariable int course_id){
+
+    }
+
 
 
 }
