@@ -28,7 +28,7 @@
     <br><br>
     <div class="input-group flex-nowrap">
         <span class="input-group-text" id="addon-wrapping1">📚</span>
-        <input type="text" name="url" class="form-control" placeholder="Lesson name" aria-label="Username"
+        <input type="text" name="url" class="form-control" placeholder="video url" aria-label="Username"
                aria-describedby="addon-wrapping1">
     </div>
     <br><br>

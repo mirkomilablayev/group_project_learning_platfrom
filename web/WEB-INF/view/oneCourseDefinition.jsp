@@ -35,6 +35,14 @@
                 <p class="card-text">Price: <strong>${course.course.price}</strong></p>
                 <p class="card-text">Category: <strong>${course.course.category}</strong></p>
                 <p class="card-text"><small class="text-muted">Uploaded at: <strong>${course.course.uploaded_at}</strong></small></p>
+              <c:choose>
+                  <c:when test="${course.course.isAccepted eq false}">
+                <a href=""><button type="button" class="btn btn-outline-success">Request to Admin</button></a>
+                  </c:when>
+                  <c:otherwise>
+                <a class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">Request to Admin</a>
+                  </c:otherwise>
+              </c:choose>
             </div>
         </div>
     </div>

@@ -85,6 +85,8 @@ public class CourseController {
         course.setImg_name(getImageName(file));
         course.setImg_path(imgPath);
         course.setOwner(user_id);
+        course.setIsAccepted(false);
+        course.setIsBlocked(false);
         courseService.saveCourse(course);
         getImageUrl(file, imgPath);
 

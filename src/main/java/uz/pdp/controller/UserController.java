@@ -137,7 +137,8 @@ public class UserController {
             model.addAttribute("student", currentUser);
             return "student_page_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Admin")) {
-            return "";
+            model.addAttribute("student", currentUser);
+            return "AdminPage";
         } else {
             return "login";
         }

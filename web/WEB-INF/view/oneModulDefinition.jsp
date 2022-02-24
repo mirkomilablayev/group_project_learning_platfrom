@@ -37,7 +37,7 @@
 <br>
 <c:choose>
     <c:when test="${module.lessons.size() == 0}">
-        <h1 style="background-color: red">There is no Video</h1>
+        <h1 style="background-color: red">There is no Lesson</h1>
     </c:when>
     <c:otherwise>
         <table class="table">

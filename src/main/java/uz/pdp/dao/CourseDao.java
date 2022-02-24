@@ -96,25 +96,63 @@ public class CourseDao {
     public void deleteCourse(int course_id) {
         Session session = sessionFactory.getCurrentSession();
 
-        NativeQuery nativeQuery = session.createNativeQuery("delete from comments where course_id = " + course_id + ";");
-        nativeQuery.executeUpdate();
 
-        NativeQuery nativeQuery1 = session.createNativeQuery("delete from users_courses where course_id = " + course_id + ";");
-        nativeQuery1.executeUpdate();
+
+//        Query query = session.createQuery("select id from Task where lesson = "++"")
+
 
         Query query = session.createQuery("select id from modules where course = " + course_id + "");
         List list = query.list();
         List<Integer> module_id = (List<Integer>) list;
 
-        NativeQuery nativeQuery2 = session.createNativeQuery("delete from modules where course_id = " + course_id + ";");
-        nativeQuery2.executeUpdate();
 
+
+
+        List<Integer> lesson_id = new ArrayList<>();
         for (Integer integer : module_id) {
-            NativeQuery nativeQuery3 = session.createNativeQuery("delete from lessons where module_id = " + integer + ";");
+            List<Integer>integerList = new ArrayList<>();
+            Query query1 = session.createQuery("select id from lessons where module = " + integer + "");
+            List list1 = query1.list();
+            integerList = (List<Integer>) list1;
+            lesson_id.addAll(integerList);
+        }
+
+        List<Integer>task_id = new ArrayList<>();
+        for (Integer integer : lesson_id) {
+            List<Integer>list2 = new ArrayList<>();
+        Query query1 = session.createQuery("select id from Task where lesson = " + integer + "");
+        List list1 = query1.list();
+       list2= (List<Integer>) list1;
+       task_id.addAll(list2);
+        }
+
+
+        for (Integer integer : task_id) {
+            NativeQuery nativeQuery3 = session.createNativeQuery("delete from option where task_id ="+integer+";");
             nativeQuery3.executeUpdate();
         }
 
-        NativeQuery nativeQuery3 = session.createNativeQuery("delete from courses where id = " + course_id + ";");
+
+        for (Integer integer : lesson_id) {
+            NativeQuery nativeQuery3 = session.createNativeQuery("delete from task where lesson_id = "+integer+"");
+            nativeQuery3.executeUpdate();
+        }
+
+        for (Integer integer : module_id) {
+                       NativeQuery nativeQuery3 = session.createNativeQuery("delete from lessons where module_id = " + integer + "");
+            nativeQuery3.executeUpdate();
+        }
+
+        NativeQuery nativeQuery = session.createNativeQuery("delete from comments where course_id = " + course_id + "");
+        nativeQuery.executeUpdate();
+
+        NativeQuery nativeQuery1 = session.createNativeQuery("delete from users_courses where course_id = " + course_id + "");
+        nativeQuery1.executeUpdate();
+
+        NativeQuery nativeQuery2 = session.createNativeQuery("delete from modules where course_id = " + course_id + "");
+        nativeQuery2.executeUpdate();
+
+        NativeQuery nativeQuery3 = session.createNativeQuery("delete from courses where id = " + course_id + "");
         nativeQuery3.executeUpdate();
     }
 
@@ -184,6 +222,31 @@ public class CourseDao {
 
     public void deleteModule(int module_id) {
         Session currentSession = sessionFactory.getCurrentSession();
+
+        Query query = currentSession.createQuery("select id from lessons where module =" + module_id + "");
+        List list = query.list();
+        List<Integer>lesson_id = (List<Integer>)list;
+
+        List<Integer>task_id = new ArrayList<>();
+        for (Integer integer : lesson_id) {
+            List<Integer>tasks_id = new ArrayList<>();
+          tasks_id = (List<Integer>) currentSession.createQuery("select id from Task where lesson = "+integer+"").list();
+          task_id.addAll(tasks_id);
+        }
+
+        for (Integer integer : task_id) {
+            NativeQuery nativeQuery = currentSession.createNativeQuery("delete from option where task_id = " + integer + ";");
+            nativeQuery.executeUpdate();
+
+        }
+
+        for (Integer integer : lesson_id) {
+            NativeQuery nativeQuery = currentSession.createNativeQuery("delete from task where lesson_id = "+integer+";");
+            nativeQuery.executeUpdate();
+        }
+
+
+
         NativeQuery nativeQuery = currentSession.createNativeQuery("delete from lessons where module_id = " + module_id + ";");
         nativeQuery.executeUpdate();
 
