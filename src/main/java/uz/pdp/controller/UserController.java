@@ -132,8 +132,6 @@ public class UserController {
             return "mentor_pagel_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Student")) {
 
-            final List<CourseDto> allCourses = studentService.getAllCourses();
-            model.addAttribute("courses", allCourses);
             model.addAttribute("student", currentUser);
             return "student_page_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Admin")) {
