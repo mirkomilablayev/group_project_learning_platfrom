@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.dao.AdminDao;
+import uz.pdp.model.Course;
+import uz.pdp.model.Request;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -19,5 +23,11 @@ public class AdminService {
 
     @Autowired
     AdminDao adminDao;
+
+    public List<Request>getallRequest(){
+        return adminDao.getAllRequest();
+    }
+
+    public void acceptCourse(Course course){adminDao.acceptCourse(course);}
 
 }

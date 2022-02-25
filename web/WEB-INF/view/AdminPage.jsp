@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: User
@@ -13,6 +14,11 @@
 </head>
 <body>
 
+<c:set var="admin" value="${student}"/>
+
+
+
+
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="spinner-border text-success" role="status">
@@ -24,7 +30,7 @@
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">  <button type="button" class="btn btn-outline-primary">Requests</button></a>
+                    <a class="nav-link" href="/requests/${admin.id}">  <button type="button" class="btn btn-outline-primary">Requests</button></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">  <button type="button" class="btn btn-outline-primary">Users</button></a>
@@ -47,8 +53,19 @@
     </div>
 </nav>
 
-<h1></h1>
-
+<h1 style="color: green">Admin Of The Best Of The Best Team</h1>
+<h2 style="color: #502188">Full Name: ${admin.firstName} ${admin.lastName}</h2>
+<h2 style="color: green">Username: ${admin.username}</h2>
+<h2 style="color: #591983">Email:${admin.email}</h2>
+<h2 style="color: green">Bio:${admin.bio}</h2>
+<h2 style="color: #5c1181">Register At:${admin.register_at}</h2>
+<hr>
+<h1>Our Teacher: Abrorjon Ergashev</h1>
+<h3>Member of Team: Asilbek</h3>
+<h3>Member of Team: Muhammad</h3>
+<h3>Member of Team: Sardor</h3>
+<h3>Member of Team: Oloviddin</h3>
+<h3>Member of Team: Mirkomil</h3>
 
 
 </body>

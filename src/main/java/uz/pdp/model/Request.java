@@ -7,6 +7,7 @@ package uz.pdp.model;
 
 //Author --  Ablayev Mirkomil 2/24/2022 --7:52 AM 
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
