@@ -10,8 +10,13 @@ import uz.pdp.service.StudentService;
 public class StudentController {
 
 
+
+
+
     @Autowired
     StudentService studentService;
+
+
 
 
 
