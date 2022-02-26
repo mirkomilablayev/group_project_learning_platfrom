@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">
+                            <a class="nav-link" href="/myCourses/${currentUser}">
                                 <button type="button" class="btn btn-outline-primary">My courses</button>
                             </a>
                         </li>

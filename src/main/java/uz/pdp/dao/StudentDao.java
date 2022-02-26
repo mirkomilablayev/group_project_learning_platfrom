@@ -5,6 +5,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +35,7 @@ public class StudentDao {
 
 
     public List<CourseDto> getCourses(String search) {
+
         Session session = sessionFactory.getCurrentSession();
 
         Query query = session.createQuery("from Course  where isAccepted = true and name like '%"+search+"%'");
