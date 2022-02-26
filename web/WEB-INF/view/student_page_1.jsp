@@ -10,15 +10,13 @@
 <html>
 <head>
     <title>Student Page</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 </head>
 <body>
 <c:set value="${student}" var="currentUser"/>
+<c:set value="${all}" var="allcourse"/>
 
 <c:choose>
 
@@ -37,11 +35,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">
-                                <button type="button" class="btn btn-outline-primary">Home</button>
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/">
                                 <button type="button" class="btn btn-outline-primary">My courses</button>
@@ -65,9 +58,42 @@
                 </div>
             </div>
         </nav>
+        <hr>
+        <br>
+
+        <c:choose>
+            <c:when test="${courses.size() == 0}">
+                <h1>There is no any Course to buy</h1>
+            </c:when>
+            <c:otherwise>
+                <div class="row">
+                    <c:forEach items="${allcourse}" var="courses">
+                        <div class="card" style="width: 18rem; background-color: aqua;padding: 1%" class="col-6 offset-3">
+                            <img style="padding: 2%"
+                                 src="data:image/png;base64, ${courses.img}"
+                                 class="card-img-top" alt="Here should be image">
+                            <div class="card-body">
+                                <h5 class="card-title">${courses.course.name}</h5>
+                                <p class="card-text">Description: ${courses.course.description}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item" style="background-color: aqua">price: ${courses.course.price}</li>
+                                <li class="list-group-item"  style="background-color: aqua">category: ${courses.course.category}</li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="#" class="card-link">
+                                    <button type="button" class="btn btn-outline-success">Buy Now</button>
+                                </a>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:otherwise>
+        </c:choose>
+
+
     </c:otherwise>
 
 </c:choose>
-<%--<h1>Assalomu alaykum Student Panel,,${currentUser.firstName}</h1>--%>
 </body>
 </html>

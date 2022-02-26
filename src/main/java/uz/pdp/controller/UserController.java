@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.model.Course;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.StudentService;
@@ -131,6 +132,8 @@ public class UserController {
             return "mentor_pagel_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Student")) {
 
+            List<CourseDto> allCourse = userService.getAllCourse();
+            model.addAttribute("all",allCourse);
             model.addAttribute("student", currentUser);
             return "student_page_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Admin")) {
