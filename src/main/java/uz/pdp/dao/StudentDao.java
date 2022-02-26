@@ -113,7 +113,6 @@ public class StudentDao {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             courseDto.add(courseDto1);
         }
         return courseDto;
@@ -147,13 +146,21 @@ public class StudentDao {
 
 
     public List<CourseDto> myCourse(int student_id) {
-
         Session session = sessionFactory.getCurrentSession();
 
-        Query query = session.createQuery("from users_courses join Course on users_courses.user =  "+student_id+"");
+        Query query3 = session.createQuery("select id from users_courses where user = " + student_id + "");
+        List list2 = query3.list();
+        List<Integer>user_course_id = (List<Integer>)list2;
 
+        List<Course> courseList = new ArrayList<>();
+        for (Integer integer : user_course_id) {
+            List<Course>courses = new ArrayList<>();
+        Query query = session.createQuery("from Course where isAccepted = true and id="+integer+"");
         List list = query.list();
-        List<Course> courseList = (List<Course>) list;
+        courses = (List<Course>) list;
+            courseList.addAll(courses);
+        }
+
         int likes = 0;
         List<CourseDto> courseDto = new ArrayList<>();
 
@@ -182,7 +189,6 @@ public class StudentDao {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             courseDto.add(courseDto1);
         }
         return courseDto;
