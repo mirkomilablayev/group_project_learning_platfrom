@@ -112,10 +112,9 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login_(@RequestParam String email,
                          @RequestParam String password,
-                         Model model,
-                         HttpSession session) {
+                         Model model) {
 
-//        HttpSession session =
+
         boolean b = userService.isexistUser(email, password);
         if (b) {
             return "login";

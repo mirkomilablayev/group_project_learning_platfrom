@@ -30,5 +30,6 @@ public class Course {
     private Boolean isAccepted = false;
     private Boolean isBlocked = false;
     private Boolean InProgres = false;
+    private Boolean isCanceled = false;
 
 }
