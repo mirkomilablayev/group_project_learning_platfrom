@@ -38,7 +38,7 @@
                     <a class="nav-link" href="/">  <button type="button" class="btn btn-outline-primary">Profile settings</button></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">  <button type="button" class="btn btn-outline-primary">Log out</button></a>
+                    <a class="nav-link" href="/start">  <button type="button" class="btn btn-outline-primary">Log out</button></a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -64,6 +64,47 @@
     </c:forEach>
 </div>
 
+<div class="row">
+    <c:forEach var="c" items="${courses}">
+        <div class="card;" class="col-10 offset-1"
+             style="width: 18rem;background-color: aqua;border-color: blue;margin: 2%">
+            <img style="padding: 2%"
+                 src="data:image/png;base64, ${c.img}"
+                 class="card-img-top" alt="Here should be image">
+            <div class="card-body">
+                <p class="card-title"><strong>Course Name:</strong>${c.course.name}</p>
+                <p class="card-text"><strong>Description:</strong>${c.course.description}</p>
+                <c:choose>
+                    <c:when test="${c.course.isAccepted eq true}">
+                        <p>on production ✔</p>
+                    </c:when>
+                </c:choose>
+                <a href="/more/${c.course.id}" class="btn btn-primary">
+                    <button style="width: 75px;background-color: cadetblue">More</button>
+                </a>
+                <c:choose>
+                    <c:when test="${c.course.inProgres eq true}">
+                        <a class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">Checking..</a>
+                    </c:when>
+                    <c:when test="${c.course.isAccepted eq false}">
+                        <a href="/deleteCourse/${c.course.id}/${currentUser.id}" class="btn btn-primary">
+                            <button style="background-color: red;width: 75px">Delete</button>
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="btn btn-secondary btn-lg disabled" role="button"
+                           aria-disabled="true">Delete</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+    </c:forEach>
+</div>
+<c:forEach var="course" items="${list}">
+    <img src="data:image/png;base64, ${course.img_path}"
+         style="width: 72px; height: 72px" alt="Here should be image">
+    <p>${course.name}</p>
+</c:forEach>
 <%--<h1>Assalomu alaykum Student Panel,,${currentUser.firstName}</h1>--%>
 </body>
 </html>

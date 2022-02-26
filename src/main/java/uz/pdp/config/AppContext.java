@@ -37,7 +37,7 @@ public class AppContext {
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5433/learning_platform_db");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/learning_platform_db");
         dataSource.setUsername("postgres");
         dataSource.setPassword("root123");
 

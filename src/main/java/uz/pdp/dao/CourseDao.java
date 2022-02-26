@@ -7,11 +7,13 @@ package uz.pdp.dao;
 
 //Author --  Ablayev Mirkomil 2/20/2022 --9:16 AM 
 
+import com.google.gson.Gson;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
@@ -32,6 +34,9 @@ public class CourseDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private JdbcTemplate template;
 
 
     public List<Category> getAll() {
@@ -97,7 +102,6 @@ public class CourseDao {
         Session session = sessionFactory.getCurrentSession();
 
 
-
 //        Query query = session.createQuery("select id from Task where lesson = "++"")
 
 
@@ -106,40 +110,38 @@ public class CourseDao {
         List<Integer> module_id = (List<Integer>) list;
 
 
-
-
         List<Integer> lesson_id = new ArrayList<>();
         for (Integer integer : module_id) {
-            List<Integer>integerList = new ArrayList<>();
+            List<Integer> integerList = new ArrayList<>();
             Query query1 = session.createQuery("select id from lessons where module = " + integer + "");
             List list1 = query1.list();
             integerList = (List<Integer>) list1;
             lesson_id.addAll(integerList);
         }
 
-        List<Integer>task_id = new ArrayList<>();
+        List<Integer> task_id = new ArrayList<>();
         for (Integer integer : lesson_id) {
-            List<Integer>list2 = new ArrayList<>();
-        Query query1 = session.createQuery("select id from Task where lesson = " + integer + "");
-        List list1 = query1.list();
-       list2= (List<Integer>) list1;
-       task_id.addAll(list2);
+            List<Integer> list2 = new ArrayList<>();
+            Query query1 = session.createQuery("select id from Task where lesson = " + integer + "");
+            List list1 = query1.list();
+            list2 = (List<Integer>) list1;
+            task_id.addAll(list2);
         }
 
 
         for (Integer integer : task_id) {
-            NativeQuery nativeQuery3 = session.createNativeQuery("delete from option where task_id ="+integer+";");
+            NativeQuery nativeQuery3 = session.createNativeQuery("delete from option where task_id =" + integer + ";");
             nativeQuery3.executeUpdate();
         }
 
 
         for (Integer integer : lesson_id) {
-            NativeQuery nativeQuery3 = session.createNativeQuery("delete from task where lesson_id = "+integer+"");
+            NativeQuery nativeQuery3 = session.createNativeQuery("delete from task where lesson_id = " + integer + "");
             nativeQuery3.executeUpdate();
         }
 
         for (Integer integer : module_id) {
-                       NativeQuery nativeQuery3 = session.createNativeQuery("delete from lessons where module_id = " + integer + "");
+            NativeQuery nativeQuery3 = session.createNativeQuery("delete from lessons where module_id = " + integer + "");
             nativeQuery3.executeUpdate();
         }
 
@@ -225,13 +227,13 @@ public class CourseDao {
 
         Query query = currentSession.createQuery("select id from lessons where module =" + module_id + "");
         List list = query.list();
-        List<Integer>lesson_id = (List<Integer>)list;
+        List<Integer> lesson_id = (List<Integer>) list;
 
-        List<Integer>task_id = new ArrayList<>();
+        List<Integer> task_id = new ArrayList<>();
         for (Integer integer : lesson_id) {
-            List<Integer>tasks_id = new ArrayList<>();
-          tasks_id = (List<Integer>) currentSession.createQuery("select id from Task where lesson = "+integer+"").list();
-          task_id.addAll(tasks_id);
+            List<Integer> tasks_id = new ArrayList<>();
+            tasks_id = (List<Integer>) currentSession.createQuery("select id from Task where lesson = " + integer + "").list();
+            task_id.addAll(tasks_id);
         }
 
         for (Integer integer : task_id) {
@@ -241,10 +243,9 @@ public class CourseDao {
         }
 
         for (Integer integer : lesson_id) {
-            NativeQuery nativeQuery = currentSession.createNativeQuery("delete from task where lesson_id = "+integer+";");
+            NativeQuery nativeQuery = currentSession.createNativeQuery("delete from task where lesson_id = " + integer + ";");
             nativeQuery.executeUpdate();
         }
-
 
 
         NativeQuery nativeQuery = currentSession.createNativeQuery("delete from lessons where module_id = " + module_id + ";");
@@ -330,15 +331,14 @@ public class CourseDao {
     }
 
 
-
-    public void sendRequest(Request request,Course course){
+    public void sendRequest(Request request, Course course) {
         Session session = sessionFactory.getCurrentSession();
         session.save(request);
         session.saveOrUpdate(course);
     }
 
 
-    public void cancelRequest(Course course){
+    public void cancelRequest(Course course) {
         Session currentSession = sessionFactory.getCurrentSession();
         NativeQuery nativeQuery = currentSession.createNativeQuery("delete from requests where course_id = " + course.getId() + ";");
         nativeQuery.executeUpdate();
@@ -346,4 +346,16 @@ public class CourseDao {
         currentSession.saveOrUpdate(course);
     }
 
+    public List<Course> getAllCourses() {
+        String query = "select c.name,c.price,c.img_path\n" +
+                "from courses c;";
+        List<Course> list = template.query(query, (rs, row) -> {
+            Course course = new Course();
+            course.setName(rs.getString(1));
+            course.setPrice(rs.getDouble(2));
+            course.setImg_path(rs.getString(3));
+            return course;
+        });
+        return list;
+    }
 }

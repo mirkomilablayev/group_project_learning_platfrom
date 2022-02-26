@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.model.Course;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.StudentService;
@@ -100,9 +101,13 @@ public class UserController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model) {
+    public String login() {
+
+
+
         return "login";
     }
+
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login_(@RequestParam String email,
@@ -131,8 +136,11 @@ public class UserController {
             model.addAttribute("mentor", currentUser);
             return "mentor_pagel_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Student")) {
-
+            /*ukam shu yerga yoz*/
             model.addAttribute("student", currentUser);
+            List<Course> list = courseService.getAlLCourse();
+
+            model.addAttribute("list", list);
             return "student_page_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Admin")) {
             model.addAttribute("student", currentUser);
