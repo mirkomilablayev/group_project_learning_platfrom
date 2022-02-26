@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import uz.pdp.model.Course;
 import uz.pdp.model.Module;
 import uz.pdp.model.Request;
+import uz.pdp.model.User;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class AdminDao {
     SessionFactory sessionFactory;
 
 
-    public List<Request> getAllRequest(){
+    public List<Request> getAllRequest() {
 
         Session session = sessionFactory.getCurrentSession();
 
@@ -43,7 +45,7 @@ public class AdminDao {
     }
 
 
-    public void acceptCourse(Course course){
+    public void acceptCourse(Course course) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(course);
 
@@ -52,5 +54,33 @@ public class AdminDao {
 
     }
 
+    public Course course(int course_id) {
+        Session sessiom = sessionFactory.getCurrentSession();
+        return sessiom.get(Course.class, course_id);
+    }
 
+    public void deleteRequestAndCancelRequest(int course_id, Course course) {
+        Session session = sessionFactory.getCurrentSession();
+        NativeQuery nativeQuery = session.createNativeQuery("delete from requests where course_id = " + course_id + ";");
+        nativeQuery.executeUpdate();
+        session.saveOrUpdate(course);
+    }
+
+    public List<User> getAllUsers() {
+        Session session = sessionFactory.getCurrentSession();
+        Query from_user = session.createQuery("from User");
+        List list = from_user.list();
+        List<User> allUser = (List<User>) list;
+        return allUser;
+    }
+
+    public User getUserById(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(User.class, id);
+    }
+
+
+    public <T> void save(T something){
+        sessionFactory.getCurrentSession().saveOrUpdate(something);
+    }
 }

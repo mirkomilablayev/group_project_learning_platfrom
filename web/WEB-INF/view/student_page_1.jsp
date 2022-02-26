@@ -20,37 +20,54 @@
 <body>
 <c:set value="${student}" var="currentUser"/>
 
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid">
-        <div class="spinner-border text-success" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">  <button type="button" class="btn btn-outline-primary">Home</button></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">  <button type="button" class="btn btn-outline-primary">My courses</button></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">  <button type="button" class="btn btn-outline-primary">Profile settings</button></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">  <button type="button" class="btn btn-outline-primary">Log out</button></a>
-                </li>
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Search">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
-            </form>
-        </div>
-    </div>
-</nav>
+<c:choose>
 
+    <c:when test="${currentUser.isBlocked eq true}">
+        <h1 style="background-color: red">You Are Blocked</h1>
+    </c:when>
+    <c:otherwise>
+
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <button type="button" class="btn btn-outline-primary">Home</button>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <button type="button" class="btn btn-outline-primary">My courses</button>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <button type="button" class="btn btn-outline-primary">Profile settings</button>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <button type="button" class="btn btn-outline-primary">Log out</button>
+                            </a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="text" placeholder="Search">
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </c:otherwise>
+
+</c:choose>
 <%--<h1>Assalomu alaykum Student Panel,,${currentUser.firstName}</h1>--%>
 </body>
 </html>

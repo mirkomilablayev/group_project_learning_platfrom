@@ -33,13 +33,7 @@
                     <a class="nav-link" href="/requests/${admin.id}">  <button type="button" class="btn btn-outline-primary">Requests</button></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">  <button type="button" class="btn btn-outline-primary">Users</button></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">  <button type="button" class="btn btn-outline-primary">Courses</button></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">  <button type="button" class="btn btn-outline-primary">Profile Settings</button></a>
+                    <a class="nav-link" href="/usersManagement/${admin.id}">  <button type="button" class="btn btn-outline-primary">Users</button></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/">  <button type="button" class="btn btn-outline-primary">Log out</button></a>
