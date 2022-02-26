@@ -27,7 +27,7 @@ public class StudentController {
 
 
 
-    @RequestMapping(value = "/searchCourses/{currentUser_id}")
+    @RequestMapping(value = "/searchCourses/{currentUser_id}",method = RequestMethod.GET)
     public String search(@PathVariable int currentUser_id, Model model, @RequestParam String search){
 
         List<CourseDto> courseBySearch = studentService.getCourseBySearch(search);
@@ -37,6 +37,30 @@ public class StudentController {
         return "student_page_1";
     }
 
+    @RequestMapping(value = "/buyNow/{course_id}/{user_id}",method = RequestMethod.GET)
+    public String buyNow(@PathVariable int course_id,
+                         @PathVariable int user_id,
+                         Model model){
+
+        studentService.buyCourse(user_id,course_id);
+        List<CourseDto> courseBySearch = studentService.getCourseBySearch();
+        User currentUser = studentService.getCurrentUser(user_id);
+        model.addAttribute("all",courseBySearch);
+        model.addAttribute("student", currentUser);
+        return "student_page_1";
+
+    }
+
+
+    @RequestMapping(value = "/myCourses/{user_id}",method = RequestMethod.GET)
+    public String myCourses(@PathVariable int user_id,Model model){
+
+        List<CourseDto> courseDtos = studentService.myCourse(user_id);
+
+        model.addAttribute("user_id",user_id);
+        model.addAttribute("courses",courseDtos);
+        return "myCourses";
+    }
 
 
 

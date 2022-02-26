@@ -22,8 +22,20 @@ public class StudentService {
         return studentDao.getCourses(search);
     }
 
+    public List<CourseDto> getCourseBySearch(){
+        return studentDao.getCourses();
+    }
+
     public User getCurrentUser(int id){
         return studentDao.getCurrentUser(id);
+    }
+
+    public void buyCourse(int user_id ,int course_id){
+        studentDao.buyCourse(course_id,user_id);
+    }
+
+    public List<CourseDto> myCourse(int student_id){
+        return studentDao.myCourse(student_id);
     }
 
 }

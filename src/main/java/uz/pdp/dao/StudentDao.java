@@ -3,6 +3,7 @@ package uz.pdp.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,7 +44,6 @@ public class StudentDao {
         List list = query.list();
         List<Course> courseList = (List<Course>) list;
         int likes = 0;
-        int dislikes = 0;
         List<CourseDto> courseDto = new ArrayList<>();
 
 
@@ -63,7 +63,49 @@ public class StudentDao {
 
             Query query2 = session.createQuery("select count(*) from comments  where course = " + course1.getId() + "");
             Object o = query2.uniqueResult();
-            int i = (Integer) 0;
+            Long i = (Long)o;
+            courseDto1.setCommentCount(i);
+            try {
+                String img = getPictureByteArrayString(course1.getImg_path(), course1.getImg_name());
+                courseDto1.setImg(img);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            courseDto.add(courseDto1);
+        }
+        return courseDto;
+    }
+
+    public List<CourseDto> getCourses() {
+
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("from Course  where isAccepted = true");
+
+        List list = query.list();
+        List<Course> courseList = (List<Course>) list;
+        int likes = 0;
+        List<CourseDto> courseDto = new ArrayList<>();
+
+
+        for (Course course1 : courseList) {
+            CourseDto courseDto1 = new CourseDto();
+            Query query1 = session.createQuery("from users_courses where course = " + course1.getId() + "");
+            List list1 = query1.list();
+            List<Enrollment> userCourses = (List<Enrollment>) list1;
+            courseDto1.setCourse(course1);
+            courseDto1.setUsers(userCourses);
+            for (Enrollment userCours : userCourses) {
+                if (userCours.is_like() == true) {
+                    likes++;
+                }
+            }
+            courseDto1.setLikeCount(likes);
+
+            Query query2 = session.createQuery("select count(*) from comments  where course = " + course1.getId() + "");
+            Object o = query2.uniqueResult();
+            Long i = (Long)o;
             courseDto1.setCommentCount(i);
             try {
                 String img = getPictureByteArrayString(course1.getImg_path(), course1.getImg_name());
@@ -92,4 +134,63 @@ public class StudentDao {
     public User getCurrentUser(int id){
         return sessionFactory.getCurrentSession().get(User.class,id);
     }
+
+
+    public void buyCourse(int course_id,int user_id){
+        Session session = sessionFactory.getCurrentSession();
+
+        NativeQuery nativeQuery = session.createNativeQuery("insert into users_courses(is_like, purchase_date, course_id, user_id)\n" +
+                "VALUES(false,now(),"+course_id+","+user_id+");");
+        nativeQuery.executeUpdate();
+
+    }
+
+
+    public List<CourseDto> myCourse(int student_id) {
+
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("from users_courses join Course on users_courses.user =  "+student_id+"");
+
+        List list = query.list();
+        List<Course> courseList = (List<Course>) list;
+        int likes = 0;
+        List<CourseDto> courseDto = new ArrayList<>();
+
+
+        for (Course course1 : courseList) {
+            CourseDto courseDto1 = new CourseDto();
+            Query query1 = session.createQuery("from users_courses where course = " + course1.getId() + "");
+            List list1 = query1.list();
+            List<Enrollment> userCourses = (List<Enrollment>) list1;
+            courseDto1.setCourse(course1);
+            courseDto1.setUsers(userCourses);
+            for (Enrollment userCours : userCourses) {
+                if (userCours.is_like() == true) {
+                    likes++;
+                }
+            }
+            courseDto1.setLikeCount(likes);
+
+            Query query2 = session.createQuery("select count(*) from comments  where course = " + course1.getId() + "");
+            Object o = query2.uniqueResult();
+            Long i = (Long)o;
+            courseDto1.setCommentCount(i);
+            try {
+                String img = getPictureByteArrayString(course1.getImg_path(), course1.getImg_name());
+                courseDto1.setImg(img);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            courseDto.add(courseDto1);
+        }
+        return courseDto;
+    }
+
+
+
+
+
+
 }

@@ -63,7 +63,7 @@ public class UserDao {
 
             Query query2 = session.createQuery("select count(*) from comments  where course = " + course1.getId() + "");
             Object o = query2.uniqueResult();
-            int i = (Integer) 0;
+            Long i = (Long) o;
             courseDto1.setCommentCount(i);
             try {
                 String img = getPictureByteArrayString(course1.getImg_path(), course1.getImg_name());

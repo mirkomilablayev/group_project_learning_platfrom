@@ -27,5 +27,5 @@ public class CourseDto {
     private List<Module>modules;
     private String img;
     private int likeCount;
-    private int commentCount;
+    private Long commentCount;
 }

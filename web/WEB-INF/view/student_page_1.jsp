@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/myCourses/${currentUser}">
+                            <a class="nav-link" href="/myCourses/${currentUser.id}">
                                 <button type="button" class="btn btn-outline-primary">My courses</button>
                             </a>
                         </li>
@@ -84,7 +84,8 @@
                                         <p class="card-text">Category: <strong>${courses.course.category}</strong></p>
                                         <p class="card-text"><small class="text-muted">Uploaded at:
                                             <strong>${courses.course.uploaded_at}</strong></small></p>
-                                        <a href="/buyNow/${courses.course.id}">
+                                        <p>❤ - ${courses.likeCount} 💌 - ${courses.commentCount} <a href="#">comments</a></p>
+                                        <a href="/buyNow/${courses.course.id}/${currentUser.id}">
                                             <button type="button" class="btn btn-outline-success">Buy Now</button>
                                         </a>
                                     </div>
