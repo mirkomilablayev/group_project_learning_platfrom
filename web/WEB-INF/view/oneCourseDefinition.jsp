@@ -74,7 +74,6 @@
                 <th scope="col">Module name</th>
                 <th scope="col">button</th>
                 <th scope="col">button</th>
-                <th scope="col">button</th>
             </tr>
             </thead>
             <tbody>
@@ -82,9 +81,6 @@
                 <tr>
                     <th scope="row">💛</th>
                     <td>${module.name}</td>
-                    <td><a href="#/${module.id}">
-                        <button style="background-color: green;">Edit</button>
-                    </a></td>
                     <td><a href="/moreInfoModul/${module.id}">
                         <button style="background-color: rgba(51,0,128,0.92);">More</button>
                     </a></td>
