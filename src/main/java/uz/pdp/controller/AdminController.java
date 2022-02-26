@@ -69,4 +69,12 @@ public class AdminController {
     }
 
 
+
+    @RequestMapping(value = "/cancel/{admin_id}/{course_id}",method = RequestMethod.GET)
+    public String canselRequest(@PathVariable int admin_id,@PathVariable int course_id){
+
+
+
+        return "";
+    }
 }

@@ -68,7 +68,7 @@
                     <td>${r.mentor.firstName} ${r.mentor.lastName}</td>
                     <td>${r.course.price}</td>
                     <td><a href="/accept/${admin_id}/${r.course.id}"><button style="background-color: green">Accept</button></a></td>
-                    <td><a href="#"><button style="background-color: red">Cancel</button></a></td>
+                    <td><a href="/cancel/${admin_id}/${r.course.id}"><button style="background-color: red">Cancel</button></a></td>
                 </tr>
             </c:when>
         </c:choose>
