@@ -51,8 +51,8 @@
                             </a>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="text" placeholder="Search">
+                    <form class="d-flex" action="/searchCourses/${currentUser.id}" method="post">
+                        <input class="form-control me-2" name="search" type="text" placeholder="Search">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
                 </div>
@@ -68,22 +68,27 @@
             <c:otherwise>
                 <div class="row">
                     <c:forEach items="${allcourse}" var="courses">
-                        <div class="card" style="width: 18rem; background-color: aqua;padding: 1%" class="col-6 offset-3">
-                            <img style="padding: 2%"
-                                 src="data:image/png;base64, ${courses.img}"
-                                 class="card-img-top" alt="Here should be image">
-                            <div class="card-body">
-                                <h5 class="card-title">${courses.course.name}</h5>
-                                <p class="card-text">Description: ${courses.course.description}</p>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item" style="background-color: aqua">price: ${courses.course.price}</li>
-                                <li class="list-group-item"  style="background-color: aqua">category: ${courses.course.category}</li>
-                            </ul>
-                            <div class="card-body">
-                                <a href="#" class="card-link">
-                                    <button type="button" class="btn btn-outline-success">Buy Now</button>
-                                </a>
+                        <div class="card mb-3" style="max-width: 600px;border-color: black;background-color: aqua">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img style="padding: 2%;border-color: black"
+                                         src="data:image/png;base64, ${courses.img}"
+                                         class="card-img-top" alt="Here should be image">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Course Name: <strong>${courses.course.name}</strong></h5>
+                                        <p class="card-text">Description: <strong>${courses.course.description}</strong>
+                                        </p>
+                                        <p class="card-text">Price: <strong>${courses.course.price}</strong></p>
+                                        <p class="card-text">Category: <strong>${courses.course.category}</strong></p>
+                                        <p class="card-text"><small class="text-muted">Uploaded at:
+                                            <strong>${courses.course.uploaded_at}</strong></small></p>
+                                        <a href="/buyNow/${courses.course.id}">
+                                            <button type="button" class="btn btn-outline-success">Buy Now</button>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </c:forEach>
