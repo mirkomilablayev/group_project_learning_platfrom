@@ -28,7 +28,8 @@ import java.util.List;
 public class CourseController {
 
     //    private final String imgPath = "C:\\Users\\user\\Desktop\\HomeWork\\my_group_project\\src\\main\\resources";
-    private final String imgPath = "D:\\crud\\Learning_platform_app\\src\\main\\resources";
+   // private final String imgPath = "D:\\crud\\Learning_platform_app\\src\\main\\resources";
+    private final String imgPath = "C:\\maven\\group_project_learning_platfrom\\src\\main\\resources";
 
     @Autowired
     CourseService courseService;

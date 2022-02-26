@@ -346,7 +346,7 @@ public class CourseDao {
         currentSession.saveOrUpdate(course);
     }
 
-    public List<Course> getAllCourses() {
+    public List<Course> getSearchedCourses() {
         String query = "select c.name,c.price,c.img_path\n" +
                 "from courses c;";
         List<Course> list = template.query(query, (rs, row) -> {
@@ -358,4 +358,6 @@ public class CourseDao {
         });
         return list;
     }
+
+
 }

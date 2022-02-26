@@ -27,6 +27,4 @@ public class StudentDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-
-
 }

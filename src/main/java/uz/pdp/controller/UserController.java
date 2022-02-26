@@ -135,13 +135,11 @@ public class UserController {
             model.addAttribute("mentor", currentUser);
             return "mentor_pagel_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Student")) {
-<<<<<<< HEAD
-            /*ukam shu yerga yoz*/
-=======
 
-            List<CourseDto> allCourse = userService.getAllCourse();
-            model.addAttribute("all",allCourse);
->>>>>>> dc0406a25170737fbd7cf59abb0e470791782b28
+//
+//            List<CourseDto> allCourse = userService.getAllCourse();
+//            model.addAttribute("all",allCourse);
+//
             model.addAttribute("student", currentUser);
             List<Course> list = courseService.getAlLCourse();
 
