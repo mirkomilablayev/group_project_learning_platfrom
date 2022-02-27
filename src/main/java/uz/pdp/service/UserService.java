@@ -17,6 +17,7 @@ import java.util.List;
 
 //Author --  Ablayev Mirkomil 2/19/2022 --3:25 PM
 @Service
+@Transactional
 public class UserService {
 
 
@@ -24,20 +25,17 @@ public class UserService {
     UserDao userDao;
 
 
-    @Transactional
     public List<CourseDto> getAllCourse(){
         return userDao.getCourses();
     }
 
-    @Transactional
     public boolean isExist(String username){return userDao.isExist(username);}
 
-    @Transactional
     public void saver(User user){userDao.saver(user);}
 
-    @Transactional
     public boolean isexistUser(String email,String password){return userDao.isExist1(email,password);}
 
-    @Transactional
     public User getCurrentUser(String password,String email){return userDao.getCurrentUser(password, email);}
+
+    public User getUserById(int id){return userDao.getCurrentUserById(id);}
 }

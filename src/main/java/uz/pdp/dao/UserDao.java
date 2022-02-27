@@ -100,7 +100,7 @@ public class UserDao {
 
     public void saver(User user){
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(user);
+        currentSession.saveOrUpdate(user);
     }
 
     public boolean isExist1(String email,String password){
@@ -116,6 +116,11 @@ public class UserDao {
         Object o = query.uniqueResult();
         User user = (User)o;
         return user;
+    }
+
+    public User getCurrentUserById(int id){
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(User.class,id);
     }
 
 }

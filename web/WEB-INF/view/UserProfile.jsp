@@ -17,6 +17,55 @@
 
 <c:set var="user" value="${currentUser}"/>
 
+<div class="card" style="width: 35rem;">
+    <div class="card-body">
+        <h5 class="card-title">${user.firstName} ${user.lastName}</h5>
+        <p class="card-text">${user.bio}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Balance: ${user.balance} <a href="/addBalance/${currentUser.id}"><button type="button" class="btn btn-outline-dark">Fill Balance</button></a> </li>
+        <li class="list-group-item">Email: ${user.email}</li>
+        <li class="list-group-item">Username: ${user.username}</li>
+        <li class="list-group-item">Status: Active Account</li>
+        <c:choose>
+            <c:when test="${user.role.equalsIgnoreCase('Student')}">
+                <li class="list-group-item">Role: ${user.role} <a href="#">
+                    <button type="button" class="btn btn-outline-primary">Enter as Mentor</button>
+                </a></li>
+            </c:when>
+            <c:when test="${user.role.equalsIgnoreCase('Mentor')}">
+                <li class="list-group-item">Role: ${user.role} <a href="#">
+                    <button type="button" class="btn btn-outline-primary">Enter as Student</button>
+                </a></li>
+            </c:when>
+        </c:choose>
+        <li class="list-group-item">Register At: ${user.register_at}</li>
+        <li class="list-group-item"><a href="#"><button type="button" class="btn btn-outline-secondary">Change Password</button></a> </li>
+
+    </ul>
+    <div class="card-body">
+        <c:choose>
+            <c:when test="${currentUser.role.equalsIgnoreCase('Admin')}">
+                <a href="/backToAdminMenu/${currentUser.id}" class="card-link">
+                    <button type="button" class="btn btn-outline-danger">Back</button>
+                </a>
+            </c:when>
+            <c:when test="${currentUser.role.equalsIgnoreCase('Student')}">
+                <a href="/backToUserPage/${currentUser.id}" class="card-link">
+                    <button type="button" class="btn btn-outline-danger">Back</button>
+                </a>
+            </c:when>
+            <c:when test="${currentUser.role.equalsIgnoreCase('Mentor')}">
+                <a href="/back/${currentUser.id}" class="card-link">
+                    <button type="button" class="btn btn-outline-danger">Back</button>
+                </a>
+            </c:when>
+        </c:choose>
+        <a href="#" class="card-link">
+            <button type="button" class="btn btn-outline-success">Edit Profile</button>
+        </a>
+    </div>
+</div>
 
 
 </body>

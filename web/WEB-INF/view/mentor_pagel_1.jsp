@@ -27,7 +27,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid" style="background-color: blueviolet;">
                 <a><strong>${currentUser.firstName} ${currentUser.lastName} </strong></a>
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/profileSettigs/${currentUser.id}">
                     <button type="button" class="btn btn-primary"> Profile Settings</button>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

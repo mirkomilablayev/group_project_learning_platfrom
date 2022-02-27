@@ -36,6 +36,9 @@
                     <a class="nav-link" href="/usersManagement/${admin.id}">  <button type="button" class="btn btn-outline-primary">Users</button></a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/profileSettigs/${admin.id}">  <button type="button" class="btn btn-outline-primary">Profile Settings</button></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/">  <button type="button" class="btn btn-outline-primary">Log out</button></a>
                 </li>
             </ul>

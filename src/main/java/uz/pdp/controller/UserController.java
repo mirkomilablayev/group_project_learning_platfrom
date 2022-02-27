@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.UsesSunMisc;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -133,7 +134,7 @@ public class UserController {
         } else if (currentUser.getRole().equalsIgnoreCase("Student")) {
 
             List<CourseDto> allCourse = userService.getAllCourse();
-            model.addAttribute("all",allCourse);
+            model.addAttribute("all", allCourse);
             model.addAttribute("student", currentUser);
             return "student_page_1";
         } else if (currentUser.getRole().equalsIgnoreCase("Admin")) {
@@ -156,5 +157,31 @@ public class UserController {
         String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 
         return b64;
+    }
+
+
+    @RequestMapping(value = "/addBalance/{user_id}", method = RequestMethod.GET)
+    public String addBalance(@PathVariable int user_id, Model model) {
+        model.addAttribute("user_id",user_id);
+        return "addBalanceForm";
+    }
+
+
+    @RequestMapping(value = "/addBalance/{user_id}",method = RequestMethod.POST)
+    public String addBalancePost(@PathVariable int user_id,Model model,@RequestParam String balance){
+
+        if(balance.length() == 0)
+            return "addBalanceForm";
+
+        double v = Double.parseDouble(balance);
+        if (v<0)
+            return "addBalanceForm";
+
+        User userById = userService.getUserById(user_id);
+        userById.setBalance(userById.getBalance()+v);
+        userService.saver(userById);
+
+
+        return "redirect:/profileSettigs/"+user_id;
     }
 }
