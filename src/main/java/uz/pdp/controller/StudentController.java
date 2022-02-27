@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.dto.TaskDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.model.Module;
 import uz.pdp.model.User;
 import uz.pdp.service.StudentService;
 
 import javax.jws.WebParam;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -108,6 +110,49 @@ public class StudentController {
         model.addAttribute("user_id",user_id);
         model.addAttribute("allLesson",allLesson);
         return "studentCourseLesson";
+    }
+
+
+    @RequestMapping(value = "lessons/{user_id}/{lesson_id}/{video_url}",method = RequestMethod.GET)
+    public String getTasks(@PathVariable int user_id,
+                           @PathVariable int lesson_id,
+                           @PathVariable String video_url,
+                           Model model){
+
+        model.addAttribute("user_id",user_id);
+        model.addAttribute("lesson_id",lesson_id);
+        model.addAttribute("video_url",video_url);
+        return "Watch_video";
+    }
+
+    @RequestMapping(value = "/startQuiz/{user_id}/{lesson_id}",method = RequestMethod.GET)
+    public String getStartedTakingQuiz(@PathVariable int user_id,
+                                       @PathVariable int lesson_id,
+                                       Model model){
+        List<TaskDto> tasks_ = studentService.getTasks_(lesson_id);
+        model.addAttribute("quiz",tasks_);
+        model.addAttribute("user_id",user_id);
+        model.addAttribute("lesson_id",lesson_id);
+        return "TakingQuiz";
+    }
+
+
+    @RequestMapping(value = "/checkQuiz/{user_id}/{lessoon_id}",method = RequestMethod.GET)
+    public String checkQuiz(@PathVariable int user_id,
+                            Model model,
+                            @PathVariable int lessoon_id,
+                            @RequestParam String VARIANT){
+
+        List<TaskDto> tasks_ = studentService.getTasks_(lessoon_id);
+        List<Integer>answers = new ArrayList<>();
+        for (TaskDto taskDto : tasks_) {
+            if (VARIANT+taskDto.getTask().getId() != null){
+                answers.add(new Integer(1));
+            }
+        }
+
+
+        return "";
     }
 
 

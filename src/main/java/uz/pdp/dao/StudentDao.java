@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.dto.TaskDto;
 import uz.pdp.model.*;
 
 
@@ -229,6 +230,28 @@ public class StudentDao {
 
     public List<Lesson>allLesson(int module_id){
         return (List<Lesson>)sessionFactory.getCurrentSession().createQuery("from lessons where module="+module_id+"").list();
+    }
+
+
+    public List<TaskDto> getLessonTasks(int lesson_id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query query = currentSession.createQuery("from Task where lesson = " + lesson_id + "");
+        List list1 = query.list();
+        List<Task> tasks = (List<Task>) list1;
+
+        List<TaskDto> taskDtos = new ArrayList<>();
+        for (Task task : tasks) {
+            TaskDto taskDto = new TaskDto();
+            Query query1 = currentSession.createQuery("from Option where task = " + task.getId() + "");
+            List list = query1.list();
+            List<Option> answers = (List<Option>) list;
+
+            taskDto.setTask(task);
+            taskDto.setOption(answers);
+            taskDtos.add(taskDto);
+        }
+        return taskDtos;
     }
 
 

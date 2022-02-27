@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: User
@@ -16,6 +17,33 @@
 
 </head>
 <body>
+
+<c:set var="user_id" value="${user_id}"/>
+<c:set value="${allLesson}" var="lessons"/>
+
+
+
+<hr><br>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Button</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    <c:forEach var="lesson" items="${allLesson}">
+    <tr>
+        <th scope="row">❤</th>
+        <td>${lesson.name}</td>
+        <td><a href="/lessons/${user_id}/${lesson.id}/${lesson.video_url}"><button type="button" class="btn btn-primary btn-sm">Watch Video</button></a></td>
+    </tr>
+    </c:forEach>
 
 </body>
 </html>
