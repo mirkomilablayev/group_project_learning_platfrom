@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.model.Lesson;
+import uz.pdp.model.Module;
 import uz.pdp.model.User;
 import uz.pdp.service.StudentService;
 
@@ -90,8 +92,22 @@ public class StudentController {
                                 @PathVariable int course_id,
                                 Model model){
 
+        List<Module> modules = studentService.getModules(course_id);
+        model.addAttribute("module",modules);
+        model.addAttribute("user_id",user_id);
+        return "StudentCourseModule";
+    }
 
-        return "";
+    @RequestMapping(value = "/lessons/{user_id}/{module_id}",method = RequestMethod.GET)
+    public String lessons_(@PathVariable int user_id,
+                           @PathVariable int module_id,
+                           Model model){
+
+        List<Lesson> allLesson = studentService.getAllLesson(module_id);
+
+        model.addAttribute("user_id",user_id);
+        model.addAttribute("allLesson",allLesson);
+        return "studentCourseLesson";
     }
 
 

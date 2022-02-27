@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.dao.StudentDao;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.model.Lesson;
+import uz.pdp.model.Module;
 import uz.pdp.model.User;
 
 import java.util.List;
@@ -39,6 +41,12 @@ public class StudentService {
     }
 
     public void likeDislike(int id){studentDao.likeDislike(id);}
+
+    public List<Module> getModules(int course_id){
+        return studentDao.module(course_id);
+    }
+
+    public List<Lesson>getAllLesson(int module_id){return studentDao.allLesson(module_id);}
 
 }
 

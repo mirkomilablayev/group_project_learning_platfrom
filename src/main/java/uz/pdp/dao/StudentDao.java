@@ -13,10 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.pdp.dto.CourseDto;
-import uz.pdp.model.Course;
-import uz.pdp.model.Enrollment;
-import uz.pdp.model.Module;
-import uz.pdp.model.User;
+import uz.pdp.model.*;
 
 
 import javax.imageio.ImageIO;
@@ -228,6 +225,10 @@ public class StudentDao {
         Query query = session.createQuery("from modules where course=" + course_id + "");
         List<Module> modules = (List<Module>) query.list();
         return modules;
+    }
+
+    public List<Lesson>allLesson(int module_id){
+        return (List<Lesson>)sessionFactory.getCurrentSession().createQuery("from lessons where module="+module_id+"").list();
     }
 
 
