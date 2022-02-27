@@ -18,7 +18,8 @@
 <c:set var="user_id" value="${user_id}"/>
 <c:set var="courses" value="${courses}"/>
 
-<a href="/backToUserPage/${user_id}"><button style="background-color: aquamarine">Back To User Page</button></a>
+<a href="/backToUserPage/${user_id}"><button type="button" class="btn btn-outline-danger">Back</button></a>
+<a href="#"><button type="button" class="btn btn-outline-success">My Certificates</button></a>
 
 
 <c:choose>
@@ -62,7 +63,7 @@
                             </c:when>
                         </c:choose>
                     </c:forEach>
-                    <td><a href="#">
+                    <td><a href="/writeComment/${user_id}/${course.course.id}">
                         <button type="button" class="btn btn-outline-info">Write Comment</button>
                     </a></td>
                     <td><a href="#">

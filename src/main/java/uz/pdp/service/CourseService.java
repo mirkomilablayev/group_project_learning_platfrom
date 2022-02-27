@@ -73,4 +73,7 @@ public class CourseService {
 
     @Transactional
     public void cancelRequest(Course course){courseDao.cancelRequest(course);}
+
+    @Transactional
+    public List<Comment>getallCourseComments(int course_id){return courseDao.getAllComments(course_id);}
 }

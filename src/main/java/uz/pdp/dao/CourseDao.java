@@ -96,17 +96,9 @@ public class CourseDao {
     public void deleteCourse(int course_id) {
         Session session = sessionFactory.getCurrentSession();
 
-
-
-//        Query query = session.createQuery("select id from Task where lesson = "++"")
-
-
         Query query = session.createQuery("select id from modules where course = " + course_id + "");
         List list = query.list();
         List<Integer> module_id = (List<Integer>) list;
-
-
-
 
         List<Integer> lesson_id = new ArrayList<>();
         for (Integer integer : module_id) {
@@ -344,6 +336,11 @@ public class CourseDao {
         nativeQuery.executeUpdate();
         course.setInProgres(false);
         currentSession.saveOrUpdate(course);
+    }
+
+    public List<Comment> getAllComments(int Course_id){
+        Session currentSession = sessionFactory.getCurrentSession();
+        return (List<Comment>) currentSession.createQuery("from comments where course = " + Course_id + "").list();
     }
 
 }

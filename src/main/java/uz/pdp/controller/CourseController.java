@@ -411,5 +411,18 @@ public class CourseController {
     }
 
 
+    @RequestMapping(value = "/writeComment/{user_id}/{course_id}",method = RequestMethod.GET)
+    public String writeCommentGet(@PathVariable int user_id,
+                                  @PathVariable int course_id,
+                                  Model model){
+
+        List<Comment> comments = courseService.getallCourseComments(course_id);
+
+        model.addAttribute("comments",comments);
+        model.addAttribute("user_id",user_id);
+        return "";
+    }
+
+
 
 }
