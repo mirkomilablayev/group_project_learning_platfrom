@@ -34,19 +34,25 @@
                 <p class="card-text">Description: <strong>${course.course.description}</strong></p>
                 <p class="card-text">Price: <strong>${course.course.price}</strong></p>
                 <p class="card-text">Category: <strong>${course.course.category}</strong></p>
-                <p class="card-text"><small class="text-muted">Uploaded at: <strong>${course.course.uploaded_at}</strong></small></p>
-              <c:choose>
-                  <c:when test="${course.course.inProgres eq true}">
-                      <a class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">Checking....</a>
-                      <a href="/remoreRequest/${course.course.id}"><button >❌</button></a>
-                  </c:when>
-                  <c:when test="${course.course.isAccepted eq false}">
-                <a href="/sendRequest/${course.course.id}"><button type="button" class="btn btn-outline-success">Request to Admin</button></a>
-                  </c:when>
-                  <c:otherwise>
-                <a class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">Request is Accepted</a>
-                  </c:otherwise>
-              </c:choose>
+                <p class="card-text"><small class="text-muted">Uploaded at:
+                    <strong>${course.course.uploaded_at}</strong></small></p>
+                <c:choose>
+                    <c:when test="${course.course.inProgres eq true}">
+                        <a class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">Checking....</a>
+                        <a href="/remoreRequest/${course.course.id}">
+                            <button>❌</button>
+                        </a>
+                    </c:when>
+                    <c:when test="${course.course.isAccepted eq false}">
+                        <a href="/sendRequest/${course.course.id}">
+                            <button type="button" class="btn btn-outline-success">Request to Admin</button>
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">Request is
+                            Accepted</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -56,9 +62,13 @@
 <a href="/back/${course.course.owner}">
     <button style="background-color: red">Back</button>
 </a>
-<a href="/addModule/${course.course.owner}/${course.course.id}">
-    <button style="background-color: green">+ Add Module</button>
-</a>
+<c:choose>
+    <c:when test="${course.course.isAccepted eq false}">
+        <a href="/addModule/${course.course.owner}/${course.course.id}">
+            <button style="background-color: green">+ Add Module</button>
+        </a>
+    </c:when>
+</c:choose>
 <br>
 
 

@@ -38,4 +38,8 @@ public class StudentService {
         return studentDao.myCourse(student_id);
     }
 
+    public void likeDislike(int id){studentDao.likeDislike(id);}
+
 }
+
+

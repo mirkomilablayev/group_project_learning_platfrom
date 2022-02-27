@@ -18,6 +18,8 @@
 <c:set var="user_id" value="${user_id}"/>
 <c:set var="courses" value="${courses}"/>
 
+<a href="/backToUserPage/${user_id}"><button style="background-color: aquamarine">Back To User Page</button></a>
+
 
 <c:choose>
     <c:when test="${courses.size() == 0}">
@@ -47,12 +49,12 @@
                             <c:when test="${m.user.id == user_id && m.course.id == course.course.id}">
                                 <c:choose>
                                     <c:when test="${m._like eq true}">
-                                        <td><a href="#">
+                                        <td><a href="/likecourse/${user_id}/${m.id}">
                                             <button type="button" class="btn btn-outline-success">Unlike</button>
                                         </a></td>
                                     </c:when>
                                     <c:otherwise>
-                                        <td><a href="#">
+                                        <td><a href="/likecourse/${user_id}/${m.id}">
                                             <button type="button" class="btn btn-outline-success">Like</button>
                                         </a></td>
                                     </c:otherwise>
@@ -60,11 +62,11 @@
                             </c:when>
                         </c:choose>
                     </c:forEach>
-                    <td><a href="">
-                        <button type="button" class="btn btn-outline-success">Success</button>
+                    <td><a href="#">
+                        <button type="button" class="btn btn-outline-info">Write Comment</button>
                     </a></td>
-                    <td><a href="">
-                        <button type="button" class="btn btn-outline-success">Success</button>
+                    <td><a href="#">
+                        <button type="button" class="btn btn-outline-primary">Start Learning</button>
                     </a></td>
                 </tr>
             </c:forEach>

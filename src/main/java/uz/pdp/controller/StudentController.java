@@ -18,52 +18,71 @@ import java.util.List;
 public class StudentController {
 
 
-
-
-
     @Autowired
     StudentService studentService;
 
 
-
-
-    @RequestMapping(value = "/searchCourses/{currentUser_id}",method = RequestMethod.GET)
-    public String search(@PathVariable int currentUser_id, Model model, @RequestParam String search){
+    @RequestMapping(value = "/searchCourses/{currentUser_id}", method = RequestMethod.POST)
+    public String search(@PathVariable int currentUser_id, Model model, @RequestParam String search) {
 
         List<CourseDto> courseBySearch = studentService.getCourseBySearch(search);
         User currentUser = studentService.getCurrentUser(currentUser_id);
-        model.addAttribute("all",courseBySearch);
+        model.addAttribute("all", courseBySearch);
         model.addAttribute("student", currentUser);
         return "student_page_1";
     }
 
-    @RequestMapping(value = "/buyNow/{course_id}/{user_id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/buyNow/{course_id}/{user_id}", method = RequestMethod.GET)
     public String buyNow(@PathVariable int course_id,
                          @PathVariable int user_id,
-                         Model model){
+                         Model model) {
 
-        studentService.buyCourse(user_id,course_id);
+        studentService.buyCourse(user_id, course_id);
         List<CourseDto> courseBySearch = studentService.getCourseBySearch();
         User currentUser = studentService.getCurrentUser(user_id);
-        model.addAttribute("all",courseBySearch);
+        model.addAttribute("all", courseBySearch);
         model.addAttribute("student", currentUser);
         return "student_page_1";
 
     }
 
 
-    @RequestMapping(value = "/myCourses/{user_id}",method = RequestMethod.GET)
-    public String myCourses(@PathVariable int user_id,Model model){
+    @RequestMapping(value = "/myCourses/{user_id}", method = RequestMethod.GET)
+    public String myCourses(@PathVariable int user_id, Model model) {
+
 
         List<CourseDto> courseDtos = studentService.myCourse(user_id);
-
-        model.addAttribute("user_id",user_id);
-        model.addAttribute("courses",courseDtos);
+        model.addAttribute("user_id", user_id);
+        model.addAttribute("courses", courseDtos);
         return "myCourses";
     }
 
 
+    @RequestMapping(value = "/likecourse/{user_id}/{u_c_id}", method = RequestMethod.GET)
+    public String likeDislike(@PathVariable int user_id,
+                              @PathVariable int u_c_id) {
+        studentService.likeDislike(u_c_id);
+        return "redirect:/myCourses/" + user_id;
+    }
 
+    @RequestMapping(value = "/backToUserPage/{user_id}", method = RequestMethod.GET)
+    public String back(@PathVariable int user_id, Model model) {
+
+        User currentUser = studentService.getCurrentUser(user_id);
+        List<CourseDto> allCourse = studentService.getCourseBySearch();
+        model.addAttribute("all", allCourse);
+        model.addAttribute("student", currentUser);
+        return "student_page_1";
+    }
+
+    @RequestMapping(value = "/profileSettigs/{user_id}", method = RequestMethod.GET)
+    public String ShowUserProfile(@PathVariable int user_id,
+                                  Model model) {
+
+        User currentUser = studentService.getCurrentUser(user_id);
+        model.addAttribute("currentUser",currentUser);
+        return "UserProfile";
+    }
 
 
 }

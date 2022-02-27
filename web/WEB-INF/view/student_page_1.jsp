@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">
+                            <a class="nav-link" href="/profileSettigs/${currentUser.id}">
                                 <button type="button" class="btn btn-outline-primary">Profile settings</button>
                             </a>
                         </li>

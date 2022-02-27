@@ -137,18 +137,19 @@ public class StudentDao {
 
     public void buyCourse(int course_id,int user_id){
         Session session = sessionFactory.getCurrentSession();
-
+        boolean b = (Long) session.createQuery("select count(*) from users_courses where course=" + course_id + " and user=" + user_id + "").uniqueResult() == 0;
+        if (b){
         NativeQuery nativeQuery = session.createNativeQuery("insert into users_courses(is_like, purchase_date, course_id, user_id)\n" +
                 "VALUES(false,now(),"+course_id+","+user_id+");");
         nativeQuery.executeUpdate();
-
+        }
     }
 
 
     public List<CourseDto> myCourse(int student_id) {
         Session session = sessionFactory.getCurrentSession();
 
-        Query query3 = session.createQuery("select id from users_courses where user = " + student_id + "");
+        Query query3 = session.createQuery("select course.id from users_courses where user = " + student_id + "");
         List list2 = query3.list();
         List<Integer>user_course_id = (List<Integer>)list2;
 
@@ -192,6 +193,21 @@ public class StudentDao {
             courseDto.add(courseDto1);
         }
         return courseDto;
+    }
+
+
+    public void likeDislike(int id){
+
+        Session session = sessionFactory.getCurrentSession();
+        Enrollment enrollment = session.get(Enrollment.class, id);
+
+        if (enrollment.is_like()){
+            enrollment.set_like(false);
+        }else{
+            enrollment.set_like(true);
+        }
+        session.saveOrUpdate(enrollment);
+
     }
 
 

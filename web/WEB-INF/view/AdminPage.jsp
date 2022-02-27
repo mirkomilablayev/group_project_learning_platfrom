@@ -39,10 +39,6 @@
                     <a class="nav-link" href="/">  <button type="button" class="btn btn-outline-primary">Log out</button></a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Search users,courses">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
-            </form>
         </div>
     </div>
 </nav>
