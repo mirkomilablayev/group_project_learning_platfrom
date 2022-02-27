@@ -11,6 +11,7 @@ import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.TaskDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.model.Module;
+import uz.pdp.model.Option;
 import uz.pdp.model.User;
 import uz.pdp.service.StudentService;
 
@@ -137,22 +138,48 @@ public class StudentController {
     }
 
 
-    @RequestMapping(value = "/checkQuiz/{user_id}/{lessoon_id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/checkQuiz/{user_id}/{lessoon_id}",method = RequestMethod.POST)
     public String checkQuiz(@PathVariable int user_id,
                             Model model,
                             @PathVariable int lessoon_id,
-                            @RequestParam String VARIANT){
+                            @RequestParam String TEST1,
+                            @RequestParam String TEST2,
+                            @RequestParam String TEST3
+                            ){
 
         List<TaskDto> tasks_ = studentService.getTasks_(lessoon_id);
         List<Integer>answers = new ArrayList<>();
-        for (TaskDto taskDto : tasks_) {
-            if (VARIANT+taskDto.getTask().getId() != null){
-                answers.add(new Integer(1));
+
+        int correct_ = 0;
+
+        for (Option option : tasks_.get(0).getOption()) {
+            if (option.getAnswer().equalsIgnoreCase(TEST1)) {
+                if (option.getIsCorrect()) {
+                    correct_=correct_+1;
+                }
+            }
+        }
+
+        for (Option option : tasks_.get(0).getOption()) {
+            if (option.getAnswer().equalsIgnoreCase(TEST2)) {
+                if (option.getIsCorrect()) {
+                    correct_=correct_+1;
+                }
+            }
+        }
+
+        for (Option option : tasks_.get(0).getOption()) {
+            if (option.getAnswer().equalsIgnoreCase(TEST3)) {
+                if (option.getIsCorrect()) {
+                    correct_=correct_+1;
+                }
             }
         }
 
 
-        return "";
+
+        model.addAttribute("correct",correct_);
+        return "result";
     }
 
 

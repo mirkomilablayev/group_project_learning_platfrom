@@ -24,19 +24,34 @@
 <c:set var="lesson_id" value="${lesson_id}"/>
 
 
-
 <h1>Quis is Started</h1>
 
 <form action="/checkQuiz/${user_id}/${lesson_id}" method="post">
-    <c:forEach var="test" items="${tasks}">
-        <select class="form-select" name="TEST${test.task.id}" aria-label="Default select example">
-            Question:${test.task.task}
-            <option value="${test.option.get(0).id}">A ${test.option.get(0).answer}</option>
-            <option value="${test.option.get(1).id}">B ${test.option.get(1).answer}</option>
-            <option value="${test.option.get(2).id}">C ${test.option.get(2).answer}</option>
-            <option value="${test.option.get(3).id}">D ${test.option.get(3).answer}</option>
-        </select>
-    </c:forEach>
+
+    <h3>Question:${tasks.get(0).task.task}</h3>
+    <select class="form-select" name="TEST1" aria-label="Default select example">
+        <option value="${tasks.get(0).option.get(0).answer}">A ${tasks.get(0).option.get(0).answer}</option>
+        <option value="${tasks.get(0).option.get(1).answer}">B ${tasks.get(0).option.get(1).answer}</option>
+        <option value="${tasks.get(0).option.get(2).answer}">C ${tasks.get(0).option.get(2).answer}</option>
+        <option value="${tasks.get(0).option.get(3).answer}">D ${tasks.get(0).option.get(3).answer}</option>
+    </select>
+
+
+    <h3>Question:${tasks.get(1).task.task}</h3>
+    <select class="form-select" name="TEST2" aria-label="Default select example">
+        <option value="${tasks.get(1).option.get(0).answer}">A ${tasks.get(1).option.get(0).answer}</option>
+        <option value="${tasks.get(1).option.get(1).answer}">B ${tasks.get(1).option.get(1).answer}</option>
+        <option value="${tasks.get(1).option.get(2).answer}">C ${tasks.get(1).option.get(2).answer}</option>
+        <option value="${tasks.get(1).option.get(3).answer}">D ${tasks.get(1).option.get(3).answer}</option>
+    </select>
+
+    <h3>Question:${tasks.get(1).task.task}</h3>
+    <select class="form-select" name="TEST3" aria-label="Default select example">
+        <option value="${tasks.get(1).option.get(0).answer}">A ${tasks.get(1).option.get(0).answer}</option>
+        <option value="${tasks.get(1).option.get(1).answer}">B ${tasks.get(1).option.get(1).answer}</option>
+        <option value="${tasks.get(1).option.get(2).answer}">C ${tasks.get(1).option.get(2).answer}</option>
+        <option value="${tasks.get(1).option.get(3).answer}">D ${tasks.get(1).option.get(3).answer}</option>
+    </select>
     <input type="submit" style="background-color: cadetblue;" value="Check My Result">
 </form>
 

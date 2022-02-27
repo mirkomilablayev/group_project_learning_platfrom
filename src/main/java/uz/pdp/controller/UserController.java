@@ -238,10 +238,10 @@ public class UserController {
 
         User userById1 = userService.getUserById(currentUser_id);
         userById1.setFirstName(firstname);
-        userById1.setFirstName(lastname);
-        userById1.setFirstName(username);
-        userById1.setFirstName(email);
-        userById1.setFirstName(bio);
+        userById1.setLastName(lastname);
+        userById1.setUsername(username);
+        userById1.setEmail(email);
+        userById1.setBio(bio);
 
         userService.saver(userById1);
 

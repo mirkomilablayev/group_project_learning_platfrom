@@ -18,8 +18,8 @@
 <c:set var="current_user" value="${user_id}"/>
 
 
-
-<form action="/editProfile/${current_user.id}" class="col-6 offset-3" method="post" style="width: 500px">
+<div class="col-6 offset-3" style="width: 500px">
+<form action="/editProfile/${current_user.id}"  method="post" >
     <h1>Edit Profile</h1>
     <div class="input-group">
         <span class="input-group-text">Full name</span>
@@ -39,7 +39,8 @@
         <label for="floatingTextarea">Bio</label>
     </div>
     <br>
-    <button type="submit" class="btn btn-success">Edit</button>
+    <input type="submit" value="Edit" style="background-color: green">
+</form>
     <c:choose>
         <c:when test="${current_user.role.equalsIgnoreCase('Admin')}">
             <a href="/profileSettigs/${current_user.id}" class="card-link">
@@ -57,8 +58,7 @@
             </a>
         </c:when>
     </c:choose>
-</form>
-
+</div>
 
 
 
