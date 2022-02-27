@@ -29,18 +29,17 @@
         <li class="list-group-item">Status: Active Account</li>
         <c:choose>
             <c:when test="${user.role.equalsIgnoreCase('Student')}">
-                <li class="list-group-item">Role: ${user.role} <a href="#">
+                <li class="list-group-item">Role: ${user.role} <a href="/enterSystemWithOtherRole/${user.id}">
                     <button type="button" class="btn btn-outline-primary">Enter as Mentor</button>
                 </a></li>
             </c:when>
             <c:when test="${user.role.equalsIgnoreCase('Mentor')}">
-                <li class="list-group-item">Role: ${user.role} <a href="#">
+                <li class="list-group-item">Role: ${user.role} <a href="/enterSystemWithOtherRole/${user.id}">
                     <button type="button" class="btn btn-outline-primary">Enter as Student</button>
                 </a></li>
             </c:when>
         </c:choose>
         <li class="list-group-item">Register At: ${user.register_at}</li>
-        <li class="list-group-item"><a href="#"><button type="button" class="btn btn-outline-secondary">Change Password</button></a> </li>
 
     </ul>
     <div class="card-body">
@@ -61,7 +60,7 @@
                 </a>
             </c:when>
         </c:choose>
-        <a href="#" class="card-link">
+        <a href="/editProfile/${currentUser.id}" class="card-link">
             <button type="button" class="btn btn-outline-success">Edit Profile</button>
         </a>
     </div>

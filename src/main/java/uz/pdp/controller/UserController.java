@@ -180,8 +180,77 @@ public class UserController {
         User userById = userService.getUserById(user_id);
         userById.setBalance(userById.getBalance()+v);
         userService.saver(userById);
-
-
         return "redirect:/profileSettigs/"+user_id;
     }
+
+    @RequestMapping(value = "/enterSystemWithOtherRole/{user_id}",method = RequestMethod.GET)
+    public String changeRole(@PathVariable int user_id,Model model){
+
+        User userById = userService.getUserById(user_id);
+
+        if (userById.getRole().equalsIgnoreCase("Mentor")){
+            userById.setRole("Student");
+            userService.saver(userById);
+            List<CourseDto> allCourse = userService.getAllCourse();
+            model.addAttribute("all", allCourse);
+            model.addAttribute("student", userById);
+            return "student_page_1";
+        }else if(userById.getRole().equalsIgnoreCase("Student")){
+            userById.setRole("Mentor");
+            userService.saver(userById);
+            List<CourseDto> allCourses = courseService.getAllCourses(userById.getId());
+            for (CourseDto allCours : allCourses) {
+                try {
+                    String pictureByteArrayString = getPictureByteArrayString(allCours.getCourse().getImg_path(), allCours.getCourse().getImg_name());
+                    allCours.setImg(pictureByteArrayString);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            model.addAttribute("courses", allCourses);
+            model.addAttribute("mentor", userById);
+            return "mentor_pagel_1";
+        }
+        return "";
+    }
+
+
+    @RequestMapping(value = "/editProfile/{currentUser_id}",method = RequestMethod.GET)
+    public String editProfileGet(@PathVariable int currentUser_id,
+                                 Model model
+                                 ){
+
+
+        User userById = userService.getUserById(currentUser_id);
+        model.addAttribute("user_id",userById);
+        return "editProfilePost";
+    }
+
+
+    @RequestMapping(value = "/editProfile/{currentUser_id}",method = RequestMethod.POST)
+    public String editProfileGet(@PathVariable int currentUser_id,
+                                 @RequestParam String firstname,
+                                 @RequestParam String lastname,
+                                 @RequestParam String username,
+                                 @RequestParam String email,
+                                 @RequestParam String bio
+    ){
+
+        User userById1 = userService.getUserById(currentUser_id);
+        userById1.setFirstName(firstname);
+        userById1.setFirstName(lastname);
+        userById1.setFirstName(username);
+        userById1.setFirstName(email);
+        userById1.setFirstName(bio);
+
+        userService.saver(userById1);
+
+        return "redirect:/profileSettigs/"+currentUser_id;
+    }
+
+
+
+
+
+
 }
