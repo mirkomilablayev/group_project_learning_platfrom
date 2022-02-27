@@ -343,4 +343,8 @@ public class CourseDao {
         return (List<Comment>) currentSession.createQuery("from comments where course = " + Course_id + "").list();
     }
 
+    public void saveMessage(Comment comment){
+        sessionFactory.getCurrentSession().saveOrUpdate(comment);
+    }
+
 }

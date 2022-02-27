@@ -420,9 +420,23 @@ public class CourseController {
 
         model.addAttribute("comments",comments);
         model.addAttribute("user_id",user_id);
-        return "";
+        model.addAttribute("course_id",course_id);
+        return "WriteAndReanCommen";
     }
 
+
+    @RequestMapping(value = "/writeComment/{user_id}/{course_id}",method = RequestMethod.POST)
+    public String writeCommentPost(@PathVariable int user_id,@PathVariable int course_id,Model model,@RequestParam String message){
+        User currentUser = courseService.getCurrentUser(user_id);
+        Course course = courseService.getCourse(course_id);
+
+        Comment comment = new Comment();
+        comment.setUser(currentUser);
+        comment.setCourse(course);
+        comment.setTitle(message);
+        courseService.saveComment(comment);
+        return "redirect:/writeComment/"+user_id+"/"+course_id;
+    }
 
 
 }

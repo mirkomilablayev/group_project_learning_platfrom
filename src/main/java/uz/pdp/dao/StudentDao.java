@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.Course;
 import uz.pdp.model.Enrollment;
+import uz.pdp.model.Module;
 import uz.pdp.model.User;
 
 
@@ -220,6 +221,13 @@ public class StudentDao {
         }
         session.saveOrUpdate(enrollment);
 
+    }
+
+    public List<Module> module(int course_id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from modules where course=" + course_id + "");
+        List<Module> modules = (List<Module>) query.list();
+        return modules;
     }
 
 

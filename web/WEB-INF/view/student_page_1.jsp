@@ -84,7 +84,7 @@
                                         <p class="card-text">Category: <strong>${courses.course.category}</strong></p>
                                         <p class="card-text"><small class="text-muted">Uploaded at:
                                             <strong>${courses.course.uploaded_at}</strong></small></p>
-                                        <p>❤ - ${courses.likeCount} 💌 - ${courses.commentCount} <a href="#">comments</a></p>
+                                        <p>❤ - ${courses.likeCount} 💌 - ${courses.commentCount} <a href="/writeComment/${student.id}/${courses.course.id}"> comments</a></p>
                                         <a href="/buyNow/${courses.course.id}/${currentUser.id}">
                                             <button type="button" class="btn btn-outline-success">Buy Now</button>
                                         </a>

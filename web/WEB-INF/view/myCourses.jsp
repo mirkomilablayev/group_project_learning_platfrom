@@ -66,7 +66,7 @@
                     <td><a href="/writeComment/${user_id}/${course.course.id}">
                         <button type="button" class="btn btn-outline-info">Write Comment</button>
                     </a></td>
-                    <td><a href="#">
+                    <td><a href="/startLearning/${user_id}/${course.course.id}">
                         <button type="button" class="btn btn-outline-primary">Start Learning</button>
                     </a></td>
                 </tr>

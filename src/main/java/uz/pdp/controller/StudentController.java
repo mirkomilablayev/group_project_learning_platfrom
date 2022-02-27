@@ -85,4 +85,14 @@ public class StudentController {
     }
 
 
+    @RequestMapping(value = "/startLearning/{user_id}/{course_id}",method = RequestMethod.GET)
+    public String startLearning(@PathVariable int user_id,
+                                @PathVariable int course_id,
+                                Model model){
+
+
+        return "";
+    }
+
+
 }

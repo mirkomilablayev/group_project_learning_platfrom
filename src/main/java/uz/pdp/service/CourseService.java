@@ -76,4 +76,7 @@ public class CourseService {
 
     @Transactional
     public List<Comment>getallCourseComments(int course_id){return courseDao.getAllComments(course_id);}
+
+    @Transactional
+    public void saveComment(Comment comment){courseDao.saveMessage(comment);}
 }
